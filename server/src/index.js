@@ -4,7 +4,7 @@ import app from "./app.js";
 // import cloudinary from "cloudinary";
 
 dotenv.config({
-  path: "./env",
+  path: "./.env",
 });
 
 // cloudinary.v2.config({

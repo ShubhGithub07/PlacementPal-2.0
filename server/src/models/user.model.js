@@ -21,14 +21,27 @@ const userSchema = new Schema(
       lowercase: true,
       trim: true,
     },
+    fullname: {
+      type: String,
+      required: true,
+      trim: true,
+      index: true,
+    },
     password: {
       type: String,
       required: [true, "Password is required"],
     },
-    phone: {
-      type: Number,
-      required: [true, "Phone number is required"],
-    },
+    // avatar: {
+    //   type: String, // cloudinary url
+    //   required: true,
+    // },
+    // coverImage: {
+    //   type: String, // cloudinary url
+    // },
+    // phone: {
+    //   type: Number,
+    //   required: [true, "Phone number is required"],
+    // },
     refreshToken: {
       type: String,
     },
