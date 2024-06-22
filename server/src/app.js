@@ -1,7 +1,8 @@
 import express from "express";
 import cors from "cors";
 import cookieParser from "cookie-parser";
-import router from "./routes/user.routes.js";
+import userRouter from "./routes/user.routes.js";
+import jobRouter from "./routes/job.routes.js";
 
 const app = express();
 
@@ -18,6 +19,7 @@ app.use(express.urlencoded({ extended: true, limit: "16kb" }));
 
 app.use(cookieParser());
 
-app.use("/api/v1/users", router);
+app.use("/api/v1/users", userRouter);
+app.use("/api/v1/job", jobRouter);
 
 export default app;
