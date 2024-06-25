@@ -4,7 +4,7 @@ import JobCard from "./JobCard";
 const JobListings = () => {
   return (
     <>
-      <div className="h-auto py-14">
+      <div className="h-auto bg-[#f7f7f8] py-14">
         <div className="h-1/5 flex flex-col lg:flex-row justify-between mx-8 lg:mx-16 items-center">
           <div className="mt-10 font-semibold text-4xl text-center lg:text-left">
             Jobs
