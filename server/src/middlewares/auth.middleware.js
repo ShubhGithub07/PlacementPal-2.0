@@ -15,7 +15,8 @@ export const verifyJWT = asyncHandler(async (req, _, next) => {
     console.log("Extracted Token:", token); // Log the token for debugging
 
     if (!token) {
-      throw new ApiError(401, "Unauthorized request");
+      console.warn("No token found, proceeding without authentication");
+      return next(); // Proceed without throwing an error
     }
 
     const decodedToken = jwt.verify(token, process.env.ACCESS_TOKEN_SECRET);

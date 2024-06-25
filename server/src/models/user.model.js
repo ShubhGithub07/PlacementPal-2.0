@@ -5,7 +5,15 @@ import bcrypt from "bcrypt";
 
 const userSchema = new Schema(
   {
-    username: {
+    firstName: {
+      type: String,
+      required: true,
+      unique: true,
+      lowercase: true,
+      trim: true,
+      index: true,
+    },
+    lastName: {
       type: String,
       required: true,
       unique: true,
@@ -21,12 +29,6 @@ const userSchema = new Schema(
       lowercase: true,
       trim: true,
     },
-    fullname: {
-      type: String,
-      required: true,
-      trim: true,
-      index: true,
-    },
     password: {
       type: String,
       required: [true, "Password is required"],
@@ -34,7 +36,7 @@ const userSchema = new Schema(
     role: {
       type: String,
       required: [true, "Please select a role"],
-      enum: ["Job Seeker", "Employer"],
+      enum: ["Candidate", "Candidate"],
     },
     // avatar: {
     //   type: String, // cloudinary url

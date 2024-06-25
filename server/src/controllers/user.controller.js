@@ -34,15 +34,17 @@ const registerUser = asyncHandler(async (req, res) => {
   // check for user creation
   // return response
 
-  const { fullname, username, email, password, role } = req.body;
+  const { firstName, lastName, email, password, role } = req.body;
   //   console.log("email: ", email);
 
-  if ([fullname, email, username, role].some((field) => field?.trim() === "")) {
+  if (
+    [firstName, lastName, email, role].some((field) => field?.trim() === "")
+  ) {
     throw new ApiError(400, "All fields are required");
   }
 
   const existedUser = await User.findOne({
-    $or: [{ username }, { email }],
+    $or: [{ firstName }, { email }],
   });
 
   if (existedUser) {
@@ -73,12 +75,13 @@ const registerUser = asyncHandler(async (req, res) => {
   //   }
 
   const user = await User.create({
-    fullname,
+    firstName,
+    lastName,
     // avatar: avatar.url,
     // coverImage: coverImage?.url || "",
     email,
     password,
-    username: username.toLowerCase(),
+    // username: username.toLowerCase(),
     role,
   });
 
@@ -103,10 +106,10 @@ const loginUser = asyncHandler(async (req, res) => {
   //access and referesh token
   //send cookie
 
-  const { email, username, password } = req.body;
+  const { email, firstName, password } = req.body;
   console.log(email);
 
-  if (!username && !email) {
+  if (!firstName && !email) {
     throw new ApiError(400, "username or email is required");
   }
 
@@ -117,7 +120,7 @@ const loginUser = asyncHandler(async (req, res) => {
   // }
 
   const user = await User.findOne({
-    $or: [{ username }, { email }],
+    $or: [{ firstName }, { email }],
   });
 
   if (!user) {
@@ -254,10 +257,17 @@ const changeCurrentPassword = asyncHandler(async (req, res) => {
     .json(new ApiResponse(200, {}, "Password changed successfully"));
 });
 
+const getCurrentUser = asyncHandler(async (req, res) => {
+  return res
+    .status(200)
+    .json(200, req.user, "Current user fetched successfully");
+});
+
 export {
   registerUser,
   loginUser,
   logoutUser,
   refreshAccessToken,
   changeCurrentPassword,
+  getCurrentUser,
 };
