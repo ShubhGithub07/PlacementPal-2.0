@@ -1,13 +1,13 @@
 import { Link } from "react-router-dom";
 import JobCard from "./JobCard";
 
-const FeaturedJob = () => {
+const FeaturedJob = ({username}) => {
   return (
     <>
       <div className="h-auto py-20">
         <div className="h-1/5 flex flex-col lg:flex-row justify-between mx-8 lg:mx-16 items-center">
           <div className="mt-10 font-semibold text-4xl text-center lg:text-left">
-            Featured Jobs
+            {username}
           </div>
           <Link
             to="/jobs"

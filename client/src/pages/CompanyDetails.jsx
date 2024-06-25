@@ -1,7 +1,13 @@
+import Navbar from "../components/Navbar";
+import Footer from "../components/Footer";
+import JobDetails from "../components/JobDetails.jsx";
+
 export const CompanyDetails = () => {
   return (
     <>
-      <h1>This is a CompanyDetails Page</h1>
+      <Navbar />
+      <JobDetails />
+      <Footer />
     </>
   );
 };

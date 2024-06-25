@@ -15,7 +15,7 @@ export const Home = () => {
       <HeroArea />
       <WorkingArea />
       <PopularCategory />
-      <FeaturedJob />
+      <FeaturedJob username="Featured Jobs" />
       <TopCompanies />
       <Testimonial />
       <ChooiseArea />

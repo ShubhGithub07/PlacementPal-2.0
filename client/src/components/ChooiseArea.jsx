@@ -2,20 +2,20 @@ const ChooiseArea = () => {
   return (
     <>
       <div className="h-auto bg-[#f7f7f8] py-20 grid grid-cols-1 md:grid-cols-2 gap-4 p-4">
-        <ChooiseCard />
-        <ChooiseCard />
+        <ChooiseCard username="Become a Candidate" />
+        <ChooiseCard username="Become a Employer" />
       </div>
     </>
   );
 };
 
-const ChooiseCard = () => {
+const ChooiseCard = ({username}) => {
   return (
     <>
       <div className="mx-auto h-auto md:h-[300px] my-8 bg-white border border-slate-100 shadow hover:shadow-lg rounded-xl flex flex-col md:flex-row p-4">
         <div className="w-full md:w-3/5 flex flex-col justify-evenly items-center p-4">
           <div className="text-2xl md:text-3xl font-semibold text-center md:text-left">
-            Become a Candidate
+            {username}
           </div>
           <div className="mx-4 md:mx-12 text-center md:text-left">
             Lorem ipsum dolor sit amet, consectetur adipisicing elit. Reiciendis
