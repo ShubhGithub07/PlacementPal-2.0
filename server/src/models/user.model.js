@@ -36,7 +36,7 @@ const userSchema = new Schema(
     role: {
       type: String,
       required: [true, "Please select a role"],
-      enum: ["Candidate", "Candidate"],
+      enum: ["Candidate", "Employer"],
     },
     // avatar: {
     //   type: String, // cloudinary url
