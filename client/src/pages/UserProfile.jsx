@@ -1,15 +1,13 @@
+import UserInfo from "../components/UserInfo";
 import Navbar from "../components/Navbar";
 import Footer from "../components/Footer";
-import JobDetails from "../components/JobDetails.jsx";
 
-export const CompanyDetails = () => {
+export const UserProfile = () => {
   return (
-  <>
-
+    <>
       <Navbar />
-      <JobDetails/>
+      <UserInfo />
       <Footer />
-
     </>
   );
 };

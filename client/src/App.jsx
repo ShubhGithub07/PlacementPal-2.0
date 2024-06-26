@@ -6,8 +6,9 @@ import { Notification } from "./pages/Notification.jsx";
 import { Login } from "./pages/Login.jsx";
 import { Signup } from "./pages/Signup.jsx";
 import { Resume } from "./pages/Resume.jsx";
-import { CompanyDetails } from "./pages/CompanyDetails.jsx";
+import { CompanyProfile } from "./pages/CompanyProfile.jsx";
 import { JobDetailed } from "./pages/JobDetailed.jsx";
+import { UserProfile } from "./pages/UserProfile.jsx";
 
 function App() {
   return (
@@ -21,8 +22,9 @@ function App() {
           <Route path="/login" element={<Login />} />
           <Route path="/signup" element={<Signup />} />
           <Route path="/resume" element={<Resume />} />
-          <Route path="/companydetails" element={<CompanyDetails />} />
+          <Route path="/companyprofile" element={<CompanyProfile />} />
           <Route path="/jobdetailed" element={<JobDetailed />} />
+          <Route path="/userprofile" element={<UserProfile />} />
         </Routes>
       </BrowserRouter>
     </>
