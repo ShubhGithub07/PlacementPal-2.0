@@ -48,6 +48,7 @@ const registerUser = async (req, res) => {
     email: body.email,
   });
 
+
   if (user) {
     return res.json({ message: "Email already taken / Incorect Inputs" });
   }

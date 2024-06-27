@@ -19,3 +19,4 @@ router.route("/delete/:id").delete(authMiddleware, deleteJobCard);
 router.route("/:id").get(authMiddleware, getSingleJobCard);
 
 export default router;
+ 
