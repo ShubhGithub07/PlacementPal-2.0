@@ -1,3 +1,6 @@
+import { useState } from "react";
+import ApplicantPopup from "./ApplicantsPopup";
+
 const EmployeeDashboard = () => {
   return (
     <>
@@ -98,6 +101,12 @@ const DashboardSummaryCard = ({ value, title, url, color }) => {
 };
 
 const ApplicantJobCard = () => {
+  const [showPopup, setShowPopup] = useState(false);
+
+  const togglePopup = () => {
+    setShowPopup(!showPopup);
+  };
+
   return (
     <>
       <div className=" h-28 border-b-2 flex">
@@ -117,9 +126,13 @@ const ApplicantJobCard = () => {
           675 Applications
         </div>
         <div className=" w-1/6 flex justify-start items-center">
-          <button className=" bg-[#f1f2f4] hover:bg-[#0a65cc] text-[#0a65cc] hover:text-[#f1f2f4] font-semibold px-6 py-3 rounded-lg">
+          <button
+            onClick={togglePopup}
+            className=" bg-[#f1f2f4] hover:bg-[#0a65cc] text-[#0a65cc] hover:text-[#f1f2f4] font-semibold px-6 py-3 rounded-lg"
+          >
             View Applications
           </button>
+          <ApplicantPopup show={showPopup} onClose={togglePopup} />
         </div>
       </div>
     </>
