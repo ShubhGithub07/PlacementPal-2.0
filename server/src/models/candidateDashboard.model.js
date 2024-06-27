@@ -1,5 +1,5 @@
-import mongooose from "mongoose";
-const candidateDashboardSchema = new mongooose.Schema(
+import mongoose from "mongoose";
+const candidateDashboardSchema = new mongoose.Schema(
   {
     jobTitle: {
       type: String,
@@ -46,7 +46,7 @@ const candidateDashboardSchema = new mongooose.Schema(
   { timestamps: true }
 );
 
-export const CandidateDashboard = mongooose.model(
+export const CandidateDashboard = mongoose.model(
   "CandidateDashboard",
   candidateDashboardSchema
 );

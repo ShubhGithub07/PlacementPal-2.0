@@ -1,4 +1,5 @@
 import cors from "cors";
+import express from "express";
 import cookieParser from "cookie-parser";
 import userRouter from "./routes/user.routes.js";
 import jobRouter from "./routes/job.routes.js";

@@ -1,5 +1,5 @@
-import mongooose from "mongoose";
-const resumeSchema = new mongooose.Schema(
+import mongoose from "mongoose";
+const resumeSchema = new mongoose.Schema(
   {
     name: {
       type: String,
@@ -42,4 +42,4 @@ const resumeSchema = new mongooose.Schema(
   { timestamps: true }
 );
 
-export const Resume = mongooose.model("Resume", resumeSchema);
+export const Resume = mongoose.model("Resume", resumeSchema);

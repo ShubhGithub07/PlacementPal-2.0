@@ -1,5 +1,5 @@
-import moongoose from "mongoose";
-const companyProfileSchema = new moongoose.Schema(
+import mongoose from "mongoose";
+const companyProfileSchema = new mongoose.Schema(
   {
     avatar: {
       type: String,
@@ -49,7 +49,7 @@ const companyProfileSchema = new moongoose.Schema(
   { timestamps: true }
 );
 
-export const CompanyProfile = moongoose.model(
+export const CompanyProfile = mongoose.model(
   "CompanyProfile",
   companyProfileSchema
 );
