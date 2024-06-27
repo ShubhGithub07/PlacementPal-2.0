@@ -2,7 +2,6 @@ import dotenv from "dotenv";
 import { asyncHandler } from "../utils/asyncHandler.js";
 import { ApiError } from "../utils/ApiError.js";
 import { User } from "../models/user.model.js";
-import { uploadOnCloudianry } from "../utils/cloudinary.js";
 import { ApiResponse } from "../utils/ApiResponse.js";
 import jwt from "jsonwebtoken";
 dotenv.config();
@@ -27,16 +26,13 @@ const generateAccessAndRefereshTokens = async (userId) => {
 
 const registerUser = asyncHandler(async (req, res) => {
   const { firstName, lastName, email, password, role } = req.body;
-  //   console.log("email: ", email);
-
   if (
     [firstName, lastName, email, role].some((field) => field?.trim() === "")
   ) {
     throw new ApiError(400, "All fields are required");
   }
 
-  const existingUser = await User.findOne({email});
-
+  const existingUser = await User.findOne({ email });
   if (existingUser) {
     throw new ApiError(409, "User with email already exists");
   }
@@ -126,9 +122,6 @@ const logoutUser = asyncHandler(async (req, res) => {
   await User.findByIdAndUpdate(
     req.user._id,
     {
-      //   $unset: {
-      //     refreshToken: 1, // this removes the field from document
-      //   },
       $set: {
         refreshToken: undefined,
       },
