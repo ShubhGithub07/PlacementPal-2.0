@@ -1,7 +1,12 @@
+import { Link } from "react-router-dom";
+
 const JobCard = () => {
   return (
     <>
-      <div className=" bg-white m-4 border cursor-pointer border-slate-100 shadow hover:shadow-lg rounded-xl">
+      <Link
+        to="/jobdetailed"
+        className=" bg-white m-4 border cursor-pointer border-slate-100 shadow hover:shadow-lg rounded-xl"
+      >
         <div className=" flex">
           <div className=" h-28 w-28 m-4 rounded-lg flex justify-center items-center bg-[#e7f0fa]">
             Logo
@@ -17,7 +22,7 @@ const JobCard = () => {
           <div>Internship</div>
           <div>$100,000</div>
         </div>
-      </div>
+      </Link>
     </>
   );
 };
