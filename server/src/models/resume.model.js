@@ -33,6 +33,11 @@ const resumeSchema = new mongooose.Schema(
       type: String,
       required: true,
     },
+    postedBy: {
+      type: mongoose.Schema.ObjectId,
+      ref: "User",
+      required: true,
+    },
   },
   { timestamps: true }
 );

@@ -53,8 +53,10 @@ const createJobCard = asyncHandler(async (req, res, next) => {
     jobTitle,
     jobType,
     companyName,
+    address,
     salary,
     lastDate,
+    postedBy,
     logo: logo.url,
   });
 

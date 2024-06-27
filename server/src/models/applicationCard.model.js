@@ -29,6 +29,11 @@ const applicationCardSchema = new mongoose.Schema(
       type: Boolean,
       default: false,
     },
+    postedBy: {
+      type: mongoose.Schema.ObjectId,
+      ref: "User",
+      required: true,
+    },
   },
   { timestamps: true }
 );

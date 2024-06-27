@@ -21,11 +21,16 @@ const employerDashboardSchema = new mongoose.Schema(
       type: String,
       required: true,
     },
+    postedBy: {
+      type: mongoose.Schema.ObjectId,
+      ref: "User",
+      required: true,
+    },
   },
-  { timestamps: true },
+  { timestamps: true }
 );
 
 export const EmployerDashboard = mongoose.model(
   "EmployerDashboard",
-  employerDashboardSchema,
+  employerDashboardSchema
 );

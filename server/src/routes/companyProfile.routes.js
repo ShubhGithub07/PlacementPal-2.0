@@ -11,7 +11,7 @@ import { verifyJWT } from "../middlewares/auth.middleware.js";
 
 const router = Router();
 
-router.route("/getallCopmanyProfile").post(getAllCompanyProfile);
+router.route("/getallCompanyProfile").post(getAllCompanyProfile);
 router.route("/createCompanyProfile").post(verifyJWT, createCompanyProfile);
 router.route("/getMyCompanyProfile").post(verifyJWT, getMyCompanyProfile);
 router.route("/update/:id").post(verifyJWT, updateCompanyProfile);

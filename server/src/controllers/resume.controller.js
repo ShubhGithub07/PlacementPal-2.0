@@ -54,6 +54,7 @@ const createResume = asyncHandler(async (req, res, next) => {
     education,
     experience,
     skills,
+    postedBy,
     resumeImage: resume.url,
   });
 

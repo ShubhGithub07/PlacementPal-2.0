@@ -15,9 +15,9 @@ const getAllPostingJobs = asyncHandler(async (req, res, next) => {
 
 const createPostingJob = asyncHandler(async (req, res, next) => {
   const { role } = req.user;
-  if (role === "Job Seeker") {
+  if (role === "Candidate") {
     return next(
-      new ApiError("Job Seeker not allowed to access this resource.", 400)
+      new ApiError("Candidate not allowed to access this resource.", 400)
     );
   }
   const {
@@ -92,9 +92,9 @@ const createPostingJob = asyncHandler(async (req, res, next) => {
 
 const getMyPostingJobs = asyncHandler(async (req, res, next) => {
   const { role } = req.user;
-  if (role === "Job Seeker") {
+  if (role === "Candidate") {
     return next(
-      new ApiError("Job Seeker not allowed to access this resource.", 400)
+      new ApiError("Candidate not allowed to access this resource.", 400)
     );
   }
   const myPostingJobs = await PostingJob.find({ postedBy: req.user._id });
@@ -104,9 +104,9 @@ const getMyPostingJobs = asyncHandler(async (req, res, next) => {
 
 const updatePostingJob = asyncHandler(async (req, res, next) => {
   const { role } = req.user;
-  if (role === "Job Seeker") {
+  if (role === "Candidate") {
     return next(
-      new ApiError("Job Seeker not allowed to access this resource.", 400)
+      new ApiError("Candidate not allowed to access this resource.", 400)
     );
   }
   const { id } = req.params;
@@ -125,9 +125,9 @@ const updatePostingJob = asyncHandler(async (req, res, next) => {
 
 const deletePostingJob = asyncHandler(async (req, res, next) => {
   const { role } = req.user;
-  if (role === "Job Seeker") {
+  if (role === "Candidate") {
     return next(
-      new ApiError("Job Seeker not allowed to access this resource.", 400)
+      new ApiError("Candidate not allowed to access this resource.", 400)
     );
   }
   const { id } = req.params;

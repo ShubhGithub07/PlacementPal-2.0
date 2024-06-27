@@ -73,6 +73,7 @@ const createCompanyProfile = asyncHandler(async (req, res, next) => {
     teamSize,
     yearOfEstablishment,
     website,
+    postedBy,
     avatar: avatar.url,
     coverImage: coverImage?.url || "",
   });

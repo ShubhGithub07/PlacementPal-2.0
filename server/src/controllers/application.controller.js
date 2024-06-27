@@ -50,7 +50,7 @@ const postApplication = asyncHandler(async (req, res, next) => {
   const { name, email, coverLetter, phone, address, jobId } = req.body;
   const applicantID = {
     user: req.user._id,
-    role: "Job Seeker",
+    role: "Candidate",
   };
   if (!jobId) {
     return next(new ApiError("Job not found!", 404));
@@ -104,9 +104,9 @@ const postApplication = asyncHandler(async (req, res, next) => {
 
 const employerGetAllApplications = asyncHandler(async (req, res, next) => {
   const { role } = req.user;
-  if (role === "Job Seeker") {
+  if (role === "Candidate") {
     return next(
-      new ApiError("Job Seeker not allowed to access this resource.", 400)
+      new ApiError("Candidate not allowed to access this resource.", 400)
     );
   }
   const { _id } = req.user;

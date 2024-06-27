@@ -21,14 +21,18 @@ const createUserProfile = asyncHandler(async (req, res, next) => {
       new ApiError("Employer not allowed to access this resource.", 400)
     );
   }
-  const { fullName, experience, education } = req.body;
+  const { fullName, experience, education, headline, DOB, gender } = req.body;
 
-  if (!fullName || !experience || !education) {
+  if (
+    !fullName ||
+    !experience ||
+    !education ||
+    !headline ||
+    !DOB ||
+    !gender ||
+    !avatar
+  ) {
     return next(new ApiError("Please provide full UserProfile details.", 400));
-  }
-
-  if (!experience) {
-    return next(new ApiError("Please provide salary.", 400));
   }
 
   const avatarLocalPath = req.file?.avatar[0]?.path;
@@ -47,6 +51,7 @@ const createUserProfile = asyncHandler(async (req, res, next) => {
     headline,
     DOB,
     gender,
+    postedBy,
     avatar: avatar.url,
   });
 
