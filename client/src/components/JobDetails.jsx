@@ -1,9 +1,16 @@
 import React from "react";
+import { useState } from "react";
+import ApplyPopup from "./ApplyPopup";
 import FeaturedJob from "./FeaturedJob";
 
 const JobDetails = () => {
+    const [showPopup, setShowPopup] = useState(false);
+
+  const togglePopup = () => {
+    setShowPopup(!showPopup);
+  };
   return (
-    <div className="max-w-7xl mx-auto p-4 mt-10">
+    <div className="max-w-7xl mx-auto p-4 mt-16">
       <header className="flex justify-between items-center border-b pb-6 mb-6">
         <div className="flex items-center">
           <div className="h-28 w-28 m-4 rounded-lg flex justify-center items-center bg-[#e7f0fa]">
@@ -18,9 +25,10 @@ const JobDetails = () => {
             </div>
           </div>
         </div>
-        <button className="bg-blue-500 text-white py-2 px-4 rounded">
+        <button onClick={togglePopup} className="bg-blue-500 text-white py-2 px-4 rounded">
           Apply Now
         </button>
+        <ApplyPopup show={showPopup} onClose={togglePopup} />
       </header>
       <div className="lg:flex lg:space-x-8">
         <div className="lg:w-2/3">

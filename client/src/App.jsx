@@ -9,6 +9,7 @@ import { Resume } from "./pages/Resume.jsx";
 import { CompanyProfile } from "./pages/CompanyProfile.jsx";
 import { JobDetailed } from "./pages/JobDetailed.jsx";
 import { UserProfile } from "./pages/UserProfile.jsx";
+import { ViewApplicants } from "./pages/ViewApplicants.jsx";
 
 function App() {
   return (
@@ -25,6 +26,7 @@ function App() {
           <Route path="/companyprofile" element={<CompanyProfile />} />
           <Route path="/jobdetailed" element={<JobDetailed />} />
           <Route path="/userprofile" element={<UserProfile />} />
+          <Route path="/viewapplicants" element={<ViewApplicants />} />
         </Routes>
       </BrowserRouter>
     </>
