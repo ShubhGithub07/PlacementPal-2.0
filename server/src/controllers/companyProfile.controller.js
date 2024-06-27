@@ -38,7 +38,8 @@ const createCompanyProfile = asyncHandler(async (req, res, next) => {
     !industryType ||
     !teamSize ||
     !yearOfEstablishment ||
-    !website
+    !website ||
+    !avatar
   ) {
     return next(
       new ApiError("Please provide full CompanyProfile details.", 400)

@@ -31,7 +31,8 @@ const createResume = asyncHandler(async (req, res, next) => {
     !address ||
     !education ||
     !experience ||
-    !skills
+    !skills ||
+    !resume
   ) {
     return next(new ApiError("Please provide full Resume details.", 400));
   }

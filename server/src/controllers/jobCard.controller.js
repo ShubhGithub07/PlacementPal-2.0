@@ -30,7 +30,8 @@ const createJobCard = asyncHandler(async (req, res, next) => {
     !companyName ||
     !address ||
     !salary ||
-    !lastDate
+    !lastDate ||
+    !logo
   ) {
     return next(new ApiError("Please provide full JobCard details.", 400));
   }
