@@ -1,6 +1,6 @@
 import mongoose, { Schema } from "mongoose";
 
-const jobSchema = new Schema(
+const postingJobSchema = new Schema(
   {
     jobTitle: {
       type: String,
@@ -70,4 +70,4 @@ const jobSchema = new Schema(
   { timestamps: true }
 );
 
-export const Job = mongoose.model("Job", jobSchema);
+export const PostingJob = mongoose.model("PostingJob", postingJobSchema);

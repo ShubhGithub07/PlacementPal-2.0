@@ -29,7 +29,7 @@ const resumeSchema = new mongooose.Schema(
       type: String,
       required: true,
     },
-    resume: {
+    resumeImage: {
       type: String,
       required: true,
     },

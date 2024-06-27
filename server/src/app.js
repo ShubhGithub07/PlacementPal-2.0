@@ -31,6 +31,6 @@ app.use("/api/v1/jobcard", jobCardRouter);
 app.use("/api/v1/userprofile", userProfileRouter);
 app.use("/api/v1/companyprofile", companyProfileRouter);
 app.use("/api/v1/resume", resumeRouter);
-app.use("/api/v1/postingJob", whilePostingJobRouter);
+app.use("/api/v1/postingjob", whilePostingJobRouter);
 
 export default app;

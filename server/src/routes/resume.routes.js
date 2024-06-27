@@ -1,21 +1,19 @@
 import { Router } from "express";
 import {
-//   deleteCompanyProfile,
-//   getAllCompanyProfile,
-//   getMyCompanyProfile,
-//   getSingleCompanyProfile,
-//   createCompanyProfile,
-//   updateCompanyProfile,
-} from "../controllers/companyProfile.controller.js";
+  deleteResume,
+  getAllResume,
+  getSingleResume,
+  createResume,
+  updateResume,
+} from "../controllers/resume.controller.js";
 import { verifyJWT } from "../middlewares/auth.middleware.js";
 
 const router = Router();
 
-// router.route("/getallCopmanyProfile").post(getAllCompanyProfile);
-// router.route("/createCompanyProfile").post(verifyJWT, createCompanyProfile);
-// router.route("/getMyCompanyProfile").post(verifyJWT, getMyCompanyProfile);
-// router.route("/update/:id").post(verifyJWT, updateCompanyProfile);
-// router.route("/delete/:id").delete(verifyJWT, deleteCompanyProfile);
-// router.route("/:id").get(verifyJWT, getSingleCompanyProfile);
+router.route("/getallResume").post(getAllResume);
+router.route("/createResume").post(verifyJWT, createResume);
+router.route("/update/:id").post(verifyJWT, updateResume);
+router.route("/delete/:id").delete(verifyJWT, deleteResume);
+router.route("/:id").get(verifyJWT, getSingleResume);
 
 export default router;
