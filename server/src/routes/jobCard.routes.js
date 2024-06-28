@@ -19,3 +19,4 @@ router.route("/delete/:id").delete(verifyJWT, deleteJobCard);
 router.route("/:id").get(verifyJWT, getSingleJobCard);
 
 export default router;
+ 

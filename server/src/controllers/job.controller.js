@@ -123,7 +123,9 @@ const deleteJob = asyncHandler(async (req, res, next) => {
   }
   await job.deleteOne();
 
-  return res.status(200).json(new ApiResponse(200, "Job Deleted Successfully!"));
+  return res
+    .status(200)
+    .json(new ApiResponse(200, "Job Deleted Successfully!"));
 });
 
 const getSingleJob = asyncHandler(async (req, res, next) => {
