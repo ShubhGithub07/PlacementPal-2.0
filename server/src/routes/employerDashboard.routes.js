@@ -7,17 +7,19 @@ import {
   createEmployerDashboard,
   updateEmployerDashboard,
 } from "../controllers/employerDashboard.controller.js";
-import { verifyJWT } from "../middlewares/auth.middleware.js";
+import { authMiddleware } from "../middlewares/auth.middleware.js";
 
 const router = Router();
 
 router.route("/getallEmployerDashboard").post(getAllEmployerDashboard);
 router
   .route("/createEmployerDashboard")
-  .post(verifyJWT, createEmployerDashboard);
-router.route("/getMyEmployerDashboard").post(verifyJWT, getMyEmployerDashboard);
-router.route("/update/:id").post(verifyJWT, updateEmployerDashboard);
-router.route("/delete/:id").delete(verifyJWT, deleteEmployerDashboard);
-router.route("/:id").get(verifyJWT, getSingleEmployerDashboard);
+  .post(authMiddleware, createEmployerDashboard);
+router
+  .route("/getMyEmployerDashboard")
+  .post(authMiddleware, getMyEmployerDashboard);
+router.route("/update/:id").post(authMiddleware, updateEmployerDashboard);
+router.route("/delete/:id").delete(authMiddleware, deleteEmployerDashboard);
+router.route("/:id").get(authMiddleware, getSingleEmployerDashboard);
 
 export default router;

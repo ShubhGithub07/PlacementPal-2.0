@@ -1,4 +1,3 @@
-import express from "express";
 import cors from "cors";
 import express from "express";
 import cookieParser from "cookie-parser";
@@ -16,7 +15,7 @@ import candidateDashboardRouter from "./routes/candidateDashboard.routes.js";
 
 const app = express();
 const corsOptions = {
-  origin: process.env.CORS_ORIGIN || 'http://localhost:5173',
+  origin: "http://localhost:5173" || process.env.CORS_ORIGIN,
   credentials: true,
 };
 app.use(cors(corsOptions));

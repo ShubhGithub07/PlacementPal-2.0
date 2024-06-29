@@ -7,23 +7,19 @@ import {
   registerUser,
   getCurrentUser,
 } from "../controllers/user.controller.js";
-import { verifyJWT } from "../middlewares/auth.middleware.js";
-import { upload } from "../middlewares/multer.middleware.js";
-
+import { authMiddleware } from "../middlewares/auth.middleware.js";
 const router = Router();
 
-router.route("/register").post(
-  registerUser
-);
+router.route("/register").post(registerUser);
 
 router.route("/login").post(loginUser);
 
-router.route("/logout").post(verifyJWT, logoutUser);
+router.route("/logout").post(authMiddleware, logoutUser);
 
 router.route("/refresh-token").post(refreshAccessToken);
 
-router.route("/change-password").post(verifyJWT, changeCurrentPassword);
+router.route("/change-password").post(authMiddleware, changeCurrentPassword);
 
-router.route("/current-user").get(verifyJWT, getCurrentUser);
+router.route("/current-user").get(authMiddleware, getCurrentUser);
 
 export default router;

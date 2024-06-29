@@ -2,7 +2,9 @@ import connectDB from "./db/index.js";
 import dotenv from "dotenv";
 import app from "./app.js";
 // import cloudinary from "cloudinary";
-dotenv.config();
+dotenv.config({
+  path: "./.env",
+});
 
 connectDB()
   .then(() => {

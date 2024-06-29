@@ -8,7 +8,6 @@ const userSchema = new Schema(
     firstName: {
       type: String,
       required: true,
-      unique: true,
       lowercase: true,
       trim: true,
       index: true,
@@ -16,7 +15,6 @@ const userSchema = new Schema(
     lastName: {
       type: String,
       required: true,
-      unique: true,
       lowercase: true,
       trim: true,
       index: true,
@@ -38,17 +36,6 @@ const userSchema = new Schema(
       required: [true, "Please select a role"],
       enum: ["Candidate", "Employer"],
     },
-    // avatar: {
-    //   type: String, // cloudinary url
-    //   required: true,
-    // },
-    // coverImage: {
-    //   type: String, // cloudinary url
-    // },
-    // phone: {
-    //   type: Number,
-    //   required: [true, "Phone number is required"],
-    // },
     refreshToken: {
       type: String,
     },
@@ -69,7 +56,6 @@ userSchema.methods.isPasswordCorrect = async function (password) {
 userSchema.methods.generateAcessToken = function () {
   return jwt.sign(
     {
-      _id: this._id,
       email: this.email,
       // username: this.username,
     },

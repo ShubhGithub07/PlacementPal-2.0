@@ -7,15 +7,15 @@ import {
   createUserProfile,
   updateUserProfile,
 } from "../controllers/userProfile.controller.js";
-import { verifyJWT } from "../middlewares/auth.middleware.js";
+import { authMiddleware } from "../middlewares/auth.middleware.js";
 
 const router = Router();
 
 router.route("/getallUserProfile").post(getAllUserProfile);
-router.route("/createUserProfile").post(verifyJWT, createUserProfile);
-router.route("/getmyUserProfile").post(verifyJWT, getMyUserProfile);
-router.route("/update/:id").post(verifyJWT, updateUserProfile);
-router.route("/delete/:id").delete(verifyJWT, deleteUserProfile);
-router.route("/:id").get(verifyJWT, getSingleUserProfile);
+router.route("/createUserProfile").post(authMiddleware, createUserProfile);
+router.route("/getmyUserProfile").post(authMiddleware, getMyUserProfile);
+router.route("/update/:id").post(authMiddleware, updateUserProfile);
+router.route("/delete/:id").delete(authMiddleware, deleteUserProfile);
+router.route("/:id").get(authMiddleware, getSingleUserProfile);
 
 export default router;

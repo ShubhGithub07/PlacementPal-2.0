@@ -2,39 +2,25 @@ import mongoose, { Schema } from "mongoose";
 
 const jobSchema = new Schema(
   {
-    title: {
+    logo: {
       type: String,
       required: [true, "Please provide a title."],
-      minLength: [3, "Title must contain at least 3 Characters!"],
-      maxLength: [30, "Title cannot exceed 30 Characters!"],
     },
-    description: {
+    jobTitle: {
       type: String,
-      required: [true, "Please provide decription."],
-      minLength: [30, "Description must contain at least 30 Characters!"],
-      maxLength: [500, "Description cannot exceed 500 Characters!"],
+      required: [true, "Please provide a title."],
     },
-    category: {
+    companyName: {
       type: String,
       required: [true, "Please provide a category."],
     },
-    country: {
+    jobType: {
       type: String,
-      required: [true, "Please provide a country name."],
+      required: [true, "Please provide a category."],
     },
-    city: {
+    jobDescription: {
       type: String,
-      required: [true, "Please provide a city name."],
-    },
-    location: {
-      type: String,
-      required: [true, "Please provide location."],
-      minLength: [20, "Location must contian at least 20 characters!"],
-    },
-    fixedSalary: {
-      type: Number,
-      minLength: [4, "Salary must contain at least 4 digits"],
-      maxLength: [9, "Salary cannot exceed 9 digits"],
+      required: [true, "Please provide a category."],
     },
     salaryFrom: {
       type: Number,
@@ -46,17 +32,36 @@ const jobSchema = new Schema(
       minLength: [4, "Salary must contain at least 4 digits"],
       maxLength: [9, "Salary cannot exceed 9 digits"],
     },
-    expired: {
-      type: Boolean,
-      default: false,
+    address: {
+      type: String,
+      required: true,
     },
     jobPostedOn: {
-      type: Date,
-      default: Date.now,
+      type: String,
+      required: true,
+    },
+    vacancy: {
+      type: Number,
+      required: true,
+    },
+    experience: {
+      type: Number,
+      required: true,
+    },
+    gender: {
+      type: String,
+      required: true,
+    },
+    jobLevel: {
+      type: String,
+      required: true,
+    },
+    cardId: {
+      type: String,
+      required: true,
     },
     postedBy: {
-      type: mongoose.Schema.ObjectId,
-      ref: "User",
+      type: String,
       required: true,
     },
   },

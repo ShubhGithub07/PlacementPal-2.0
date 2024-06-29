@@ -162,11 +162,9 @@ const SubmitButton = ({ value }) => {
         email,
         password,
         role: selected,
-      }, {
-        withCredentials: true,
       });
 
-      navigate("/protected-route"); // Redirect to a protected route after successful registration
+      navigate("/"); // Redirect to a protected route after successful registration
     } catch (err) {
       setError(err.response.data.message || "Registration failed");
     } finally {

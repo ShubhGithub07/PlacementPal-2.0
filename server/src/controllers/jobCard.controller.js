@@ -5,49 +5,81 @@ import { ApiResponse } from "../utils/ApiResponse.js";
 import { uploadOnCloudianry } from "../utils/cloudinary.js";
 
 const getAllJobCard = asyncHandler(async (req, res, next) => {
-  const JobCards = await JobCard.find();
+  const filter = req.query.filter || "";
 
-  return res.status(200).json(
-    new ApiResponse(200, {
-      JobCards,
-    })
-  );
+  const JobCards = await JobCard.find({
+    $or: [
+      {
+        companyName: {
+          $regex: filter,
+          $options: "i",
+        },
+      },
+      {
+        jobTitle: {
+          $regex: filter,
+          $options: "i",
+        },
+      },
+      {
+        jobType: {
+          $regex: filter,
+          $options: "i",
+        },
+      },
+    ],
+  });
+
+  res.json({
+    JobCards: JobCards.map((job) => ({
+      companyName: job.companyName,
+      jobTitle: job.jobTitle,
+      jobType: job.jobType,
+      address: job.address,
+      salary: job.salary,
+      logo: job.logo,
+      _id: job._id,
+    })),
+  });
 });
 
+// return res.status(200).json(
+//   new ApiResponse(200, {
+//     JobCard,
+//   })
+// );
+// });
+
 const createJobCard = asyncHandler(async (req, res, next) => {
-  const { role } = req.user;
-  if (role === "Candidate") {
-    return next(
-      new ApiError("Candidate not allowed to access this resource.", 400)
-    );
-  }
-  const { jobTitle, jobType, companyName, address, salary, lastDate } =
-    req.body;
+  // const { role } = req.user;
+  // if (role === "Candidate") {
+  //   return next(
+  //     new ApiError("Candidate not allowed to access this resource.", 400)
+  //   );
+  // }
+  const {
+    jobTitle,
+    jobType,
+    companyName,
+    address,
+    salary,
+    logo,
+    lastDate,
+    postedBy,
+  } = req.body;
 
-  if (
-    !jobTitle ||
-    !jobType ||
-    !companyName ||
-    !address ||
-    !salary ||
-    !lastDate ||
-    !logo
-  ) {
-    return next(new ApiError("Please provide full JobCard details.", 400));
-  }
-
-  if (!salary) {
-    return next(new ApiError("Please provide salary.", 400));
-  }
-
-  const logoLocalPath = req.file?.logo[0]?.path;
-  if (!logoLocalPath) {
-    throw new ApiError(400, "Logo file is required");
-  }
-  const logo = await uploadOnCloudianry(logoLocalPath);
-  if (!logo) {
-    throw new ApiError(400, "Avatar file is required");
-  }
+  // if (
+  //   !salary ||
+  //   !jobTitle ||
+  //   !jobType ||
+  //   !companyName ||
+  //   !address ||
+  //   !lastDate ||
+  //   !logo ||
+  //   !postedBy
+  // ) {
+  //   return next(new ApiError("Please provide salary.", 400));
+  // }
 
   const jobCard = await JobCard.create({
     jobTitle,
@@ -55,17 +87,17 @@ const createJobCard = asyncHandler(async (req, res, next) => {
     companyName,
     address,
     salary,
+    logo,
     lastDate,
     postedBy,
-    logo: logo.url,
   });
 
-  if (!jobCard) {
-    throw new ApiError(
-      500,
-      "Something went wrong while registering the JobCard"
-    );
-  }
+  // if (!jobCard) {
+  //   throw new ApiError(
+  //     500,
+  //     "Something went wrong while registering the JobCard"
+  //   );
+  // }
 
   return res.status(200).json(
     new ApiResponse(

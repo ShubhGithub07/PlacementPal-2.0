@@ -25,9 +25,11 @@ const SearchArea = () => {
 
   useEffect(() => {
     axios
-      .get("http://localhost:3000/api/v1/job/bulk?filter=" + filter)
+      .get(
+        "http://localhost:7000/api/v1/jobcard/getalljobcard?filter=" + filter
+      )
       .then((response) => {
-        setJobs(response.data.job);
+        setJobs(response.data.JobCards);
       })
       .catch((error) => {
         console.error("There was an error fetching the jobs!", error);
@@ -86,12 +88,9 @@ const SearchArea = () => {
           </div>
         </div>
         <div className="h-auto mx-8 mt-10 lg:mx-16 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
-          <JobCard />
-          <div>
-            {jobs.map((job) => (
-              <JobCard job={job} key={job._id} />
-            ))}
-          </div>
+          {jobs.map((job) => (
+            <JobCard job={job} key={job._id} />
+          ))}
         </div>
       </>
     </>
