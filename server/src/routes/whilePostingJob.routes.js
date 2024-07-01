@@ -7,15 +7,15 @@ import {
   createPostingJob,
   updatePostingJob,
 } from "../controllers/whilePostingJob.controller.js";
-import { verifyJWT } from "../middlewares/auth.middleware.js";
+import { authMiddleware } from "../middlewares/auth.middleware.js";
 
 const router = Router();
 
 router.route("/getallPostingJob").post(getAllPostingJobs);
-router.route("/createPostingJob").post(verifyJWT, createPostingJob);
-router.route("/getMyPostingJob").post(verifyJWT, getMyPostingJobs);
-router.route("/update/:id").post(verifyJWT, updatePostingJob);
-router.route("/delete/:id").delete(verifyJWT, deletePostingJob);
-router.route("/:id").get(verifyJWT, getSinglePostingJob);
+router.route("/createPostingJob").post(authMiddleware, createPostingJob);
+router.route("/getMyPostingJob").post(authMiddleware, getMyPostingJobs);
+router.route("/update/:id").post(authMiddleware, updatePostingJob);
+router.route("/delete/:id").delete(authMiddleware, deletePostingJob);
+router.route("/:id").get(authMiddleware, getSinglePostingJob);
 
 export default router;

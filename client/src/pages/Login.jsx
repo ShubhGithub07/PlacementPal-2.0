@@ -49,7 +49,7 @@ const TwoInputBoxes = () => {
           type="password"
           value={password}
         />
-        <LoginButton value="Log in" Linkto="/" />
+        <LoginButton value="Log in" Linkto="/dashboard" />
       </div>
     </>
   );
@@ -66,22 +66,31 @@ const LoginButton = ({ value, Linkto }) => {
     setIsLoading(true);
     setError(null);
 
-    try {
-      await axios.post(
-        "http://localhost:7000/api/v1/users/login",
-        {
-          email: email,
-          password: password,
-        },
-        {
-          withCredentials: true,
+    await axios
+      .post("http://localhost:7000/api/v1/users/login", {
+        email: email,
+        password: password,
+      })
+      .then((res) => {
+        if (res) {
+          localStorage.setItem("token", res.data.token);
+          alert("User registered successfully");
+          console.log("if", res.data.token);
+        } else {
+          alert(data.message);
+          console.log("else", res.data.token);
         }
-      );
-    } catch (err) {
-      setError(err.message);
-    } finally {
-      setIsLoading(false);
-    }
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+    //   } catch (err) {
+    //     console.log("I am in catch");
+    //     setError(err.message);
+    //   } finally {
+    //   console.log("I am in finally");
+    //   setIsLoading(false);
+    // }
   };
 
   return (

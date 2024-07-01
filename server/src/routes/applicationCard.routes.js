@@ -7,15 +7,19 @@ import {
   createApplicationCard,
   updateApplicationCard,
 } from "../controllers/applicationCard.controller.js";
-import { verifyJWT } from "../middlewares/auth.middleware.js";
+import { authMiddleware } from "../middlewares/auth.middleware.js";
 
 const router = Router();
 
 router.route("/getallApplicationCard").post(getAllApplicationCard);
-router.route("/createApplicationCard").post(verifyJWT, createApplicationCard);
-router.route("/getMyApplicationCard").post(verifyJWT, getMyApplicationCard);
-router.route("/update/:id").post(verifyJWT, updateApplicationCard);
-router.route("/delete/:id").delete(verifyJWT, deleteApplicationCard);
-router.route("/:id").get(verifyJWT, getSingleApplicationCard);
+router
+  .route("/createApplicationCard")
+  .post(authMiddleware, createApplicationCard);
+router
+  .route("/getMyApplicationCard")
+  .post(authMiddleware, getMyApplicationCard);
+router.route("/update/:id").post(authMiddleware, updateApplicationCard);
+router.route("/delete/:id").delete(authMiddleware, deleteApplicationCard);
+router.route("/:id").get(authMiddleware, getSingleApplicationCard);
 
 export default router;

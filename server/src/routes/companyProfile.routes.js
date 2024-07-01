@@ -7,15 +7,17 @@ import {
   createCompanyProfile,
   updateCompanyProfile,
 } from "../controllers/companyProfile.controller.js";
-import { verifyJWT } from "../middlewares/auth.middleware.js";
+import { authMiddleware } from "../middlewares/auth.middleware.js";
 
 const router = Router();
 
 router.route("/getallCompanyProfile").post(getAllCompanyProfile);
-router.route("/createCompanyProfile").post(verifyJWT, createCompanyProfile);
-router.route("/getMyCompanyProfile").post(verifyJWT, getMyCompanyProfile);
-router.route("/update/:id").post(verifyJWT, updateCompanyProfile);
-router.route("/delete/:id").delete(verifyJWT, deleteCompanyProfile);
-router.route("/:id").get(verifyJWT, getSingleCompanyProfile);
+router
+  .route("/createCompanyProfile")
+  .post(authMiddleware, createCompanyProfile);
+router.route("/getMyCompanyProfile").post(authMiddleware, getMyCompanyProfile);
+router.route("/update/:id").post(authMiddleware, updateCompanyProfile);
+router.route("/delete/:id").delete(authMiddleware, deleteCompanyProfile);
+router.route("/:id").get(authMiddleware, getSingleCompanyProfile);
 
 export default router;

@@ -5,16 +5,16 @@ import {
   jobseekerGetAllApplications,
   postApplication,
 } from "../controllers/application.controller.js";
-import { verifyJWT } from "../middlewares/auth.middleware.js";
+import { authMiddleware } from "../middlewares/auth.middleware.js";
 
 const router = Router();
 
-router.route("/jobseeker/getall").get(verifyJWT, jobseekerGetAllApplications);
+router.route("/jobseeker/getall").get(authMiddleware, jobseekerGetAllApplications);
 
-router.route("/employer/getall").get(verifyJWT, employerGetAllApplications);
+router.route("/employer/getall").get(authMiddleware, employerGetAllApplications);
 
-router.route("/delete/:id").delete(verifyJWT, jobseekerDeleteApplication);
+router.route("/delete/:id").delete(authMiddleware, jobseekerDeleteApplication);
 
-router.route("/post").post(verifyJWT, postApplication);
+router.route("/post").post(authMiddleware, postApplication);
 
 export default router;

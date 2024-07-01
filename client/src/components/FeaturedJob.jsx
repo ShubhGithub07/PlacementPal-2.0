@@ -17,15 +17,78 @@ const FeaturedJob = ({username}) => {
           </Link>
         </div>
         <div className="h-auto mx-8 mt-10 lg:mx-16 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
-          <JobCard />
-          <JobCard />
-          <JobCard />
-          <JobCard />
-          <JobCard />
-          <JobCard />
-          <JobCard />
-          <JobCard />
-          <JobCard />
+        <JobCard
+            job={{
+              _id: "667e4bf9d8f95a3020e6c8e3",
+              jobTitle: "Full-stack Developer",
+              jobType: "Internship",
+              companyName: "Google Inc.",
+              address: "Govandi, Mumbai",
+              salary: 10000,
+              logo: "img",
+              lastDate: 9,
+            }}
+          />
+        <JobCard
+            job={{
+              _id: "667e4bf9d8f95a3020e6c8e3",
+              jobTitle: "Full-stack Developer",
+              jobType: "Internship",
+              companyName: "Google Inc.",
+              address: "Govandi, Mumbai",
+              salary: 10000,
+              logo: "img",
+              lastDate: 9,
+            }}
+          />
+        <JobCard
+            job={{
+              _id: "667e4bf9d8f95a3020e6c8e3",
+              jobTitle: "Full-stack Developer",
+              jobType: "Internship",
+              companyName: "Google Inc.",
+              address: "Govandi, Mumbai",
+              salary: 10000,
+              logo: "img",
+              lastDate: 9,
+            }}
+          />
+        <JobCard
+            job={{
+              _id: "667e4bf9d8f95a3020e6c8e3",
+              jobTitle: "Full-stack Developer",
+              jobType: "Internship",
+              companyName: "Google Inc.",
+              address: "Govandi, Mumbai",
+              salary: 10000,
+              logo: "img",
+              lastDate: 9,
+            }}
+          />
+        <JobCard
+            job={{
+              _id: "667e4bf9d8f95a3020e6c8e3",
+              jobTitle: "Full-stack Developer",
+              jobType: "Internship",
+              companyName: "Google Inc.",
+              address: "Govandi, Mumbai",
+              salary: 10000,
+              logo: "img",
+              lastDate: 9,
+            }}
+          />
+        <JobCard
+            job={{
+              _id: "667e4bf9d8f95a3020e6c8e3",
+              jobTitle: "Full-stack Developer",
+              jobType: "Internship",
+              companyName: "Google Inc.",
+              address: "Govandi, Mumbai",
+              salary: 10000,
+              logo: "img",
+              lastDate: 9,
+            }}
+          />
         </div>
       </div>
     </>

@@ -131,10 +131,7 @@ const deleteJob = asyncHandler(async (req, res, next) => {
 const getSingleJob = asyncHandler(async (req, res, next) => {
   const { id } = req.params;
   try {
-    const job = await Job.findById(id);
-    if (!job) {
-      return next(new ApiError("Job not found.", 404));
-    }
+    const job = await Job.findOne({ cardId: id });
     return res.status(200).json(
       new ApiResponse(200, {
         job,
