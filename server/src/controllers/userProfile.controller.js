@@ -1,3 +1,4 @@
+import mongoose from "mongoose";
 import { asyncHandler } from "../utils/asyncHandler.js";
 import { ApiError } from "../utils/ApiError.js";
 import { UserProfile } from "../models/userProfile.model.js";
@@ -15,44 +16,67 @@ const getAllUserProfile = asyncHandler(async (req, res, next) => {
 });
 
 const createUserProfile = asyncHandler(async (req, res, next) => {
-  const { role } = req.user;
-  if (role === "Employer") {
-    return next(
-      new ApiError("Employer not allowed to access this resource.", 400)
-    );
-  }
-  const { fullName, experience, education, headline, DOB, gender } = req.body;
+  const {
+    fullName,
+    headline,
+    experience,
+    education,
+    personalWebsite,
+    nationality,
+    DOB,
+    gender,
+    martialStatus,
+    socialLinks,
+    biography,
+    location,
+    phone,
+    email,
+    postedBy,
+  } = req.body;
+
+  console.log(req.body);
 
   if (
     !fullName ||
+    !headline ||
     !experience ||
     !education ||
-    !headline ||
+    !personalWebsite ||
+    !nationality ||
     !DOB ||
     !gender ||
-    !avatar
+    !martialStatus ||
+    !socialLinks ||
+    !biography ||
+    !location ||
+    !phone ||
+    !email ||
+    !postedBy
   ) {
-    return next(new ApiError("Please provide full UserProfile details.", 400));
+    return next(res.json("Missing Values"));
   }
 
-  const avatarLocalPath = req.file?.avatar[0]?.path;
-  if (!avatarLocalPath) {
-    throw new ApiError(400, "Logo file is required");
-  }
-  const avatar = await uploadOnCloudianry(avatarLocalPath);
-  if (!avatar) {
-    throw new ApiError(400, "Avatar file is required");
-  }
+
+  const userPosted = new mongoose.Types.ObjectId(postedBy);
+  console.log("Posted by : ",userPosted);
 
   const userProfile = await UserProfile.create({
     fullName,
+    headline,
     experience,
     education,
-    headline,
+    personalWebsite,
+    nationality,
     DOB,
     gender,
-    postedBy,
-    avatar: avatar.url,
+    martialStatus,
+    socialLinks,
+    biography,
+    location,
+    phone,
+    jobApplied: 0,
+    email,
+    postedBy: userPosted,
   });
 
   if (!userProfile) {

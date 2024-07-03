@@ -12,7 +12,7 @@ import { authMiddleware } from "../middlewares/auth.middleware.js";
 const router = Router();
 
 router.route("/getallUserProfile").post(getAllUserProfile);
-router.route("/createUserProfile").post(authMiddleware, createUserProfile);
+router.route("/createUserProfile").post(createUserProfile);
 router.route("/getmyUserProfile").post(authMiddleware, getMyUserProfile);
 router.route("/update/:id").post(authMiddleware, updateUserProfile);
 router.route("/delete/:id").delete(authMiddleware, deleteUserProfile);

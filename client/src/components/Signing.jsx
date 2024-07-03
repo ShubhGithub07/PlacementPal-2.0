@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import { RecoilRoot, useRecoilState, useRecoilValue } from "recoil";
+import { RecoilRoot, useRecoilState, useSetRecoilState, useRecoilValue } from "recoil";
 import {
   emailAtom,
   firstNameAtom,
@@ -9,6 +9,7 @@ import {
   confPasswordAtom,
   selectedAtom,
 } from "../store/atoms/Singing";
+import { loggedInUserAtom, loggedInUserIdAtom } from "../store/atoms/LoggedInUser";
 import axios from "axios";
 
 const Signing = () => {
@@ -141,6 +142,8 @@ const SubmitButton = ({ value }) => {
   const password = useRecoilValue(passwordAtom);
   const confPassword = useRecoilValue(confPasswordAtom);
   const selected = useRecoilValue(selectedAtom);
+  const setLoggedInUser = useSetRecoilState(loggedInUserAtom);
+  const setLoggedInUserId = useSetRecoilState(loggedInUserIdAtom);
 
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState(null);
@@ -162,11 +165,18 @@ const SubmitButton = ({ value }) => {
         email,
         password,
         role: selected,
-      });
+      }).then((res) => {
+        localStorage.setItem("token", res.data.token);
+        console.log(res.data.token);
+        const userId = res.data.userId
+        setLoggedInUserId(userId);
+      })
+      ;
 
+      setLoggedInUser(selected)
       navigate("/"); // Redirect to a protected route after successful registration
     } catch (err) {
-      setError(err.response.data.message || "Registration failed");
+      setError("Registration failed");
     } finally {
       setIsLoading(false);
     }
