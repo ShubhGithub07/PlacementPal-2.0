@@ -63,7 +63,7 @@ const registerUser = async (req, res) => {
     },
     process.env.JWT_SECRET
   );
-  res.json({ message: "User created successfully", token: token });
+  res.json({ message: "User created successfully", token: token , userId : dbUser._id});
 };
 
 const loginUser = async (req, res) => {

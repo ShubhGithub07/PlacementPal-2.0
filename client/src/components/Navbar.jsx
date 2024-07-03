@@ -2,7 +2,6 @@ import { Link } from "react-router-dom";
 import { useState, useEffect } from "react";
 import { jwtDecode } from "jwt-decode";
 
-
 const Navbar = () => {
   return (
     <>
@@ -29,8 +28,6 @@ const NavArea = () => {
       }
     }
   }, []);
-
-
 
   return (
     <>
@@ -69,6 +66,7 @@ const MenuIcon = ({ toggleMenu }) => {
 };
 
 const NavMenus = ({ isOpen, user }) => {
+
   const guestLinks = [
     { path: "/", label: "Home" },
     { path: "/jobs", label: "Jobs" },
@@ -78,15 +76,15 @@ const NavMenus = ({ isOpen, user }) => {
     ...guestLinks,
     { path: "/dashboard", label: "Dashboard" },
     { path: "/notification", label: "Notification" },
-    { path: "/profile", label: "Profile" },
+    { path: "/userprofile", label: "Profile" },
   ];
 
   const loggedInEmployerLinks = [
     ...guestLinks,
     { path: "/dashboard", label: "Dashboard" },
     { path: "/notification", label: "Notification" },
-    { path: "/profile", label: "Profile" },
-    { path: "/company", label: "Company" },
+    { path: "/userprofile", label: "Profile" },
+    { path: "/companyprofile", label: "Company" },
   ];
 
   const renderLinks = user
