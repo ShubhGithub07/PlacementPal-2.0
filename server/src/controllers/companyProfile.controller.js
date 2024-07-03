@@ -1,8 +1,8 @@
+import mongoose from "mongoose";
 import { asyncHandler } from "../utils/asyncHandler.js";
 import { ApiError } from "../utils/ApiError.js";
 import { CompanyProfile } from "../models/companyProfile.model.js";
 import { ApiResponse } from "../utils/ApiResponse.js";
-import { uploadOnCloudianry } from "../utils/cloudinary.js";
 
 const getAllCompanyProfile = asyncHandler(async (req, res, next) => {
   const CompanyProfiles = await CompanyProfile.find();
@@ -15,67 +15,63 @@ const getAllCompanyProfile = asyncHandler(async (req, res, next) => {
 });
 
 const createCompanyProfile = asyncHandler(async (req, res, next) => {
-  const { role } = req.user;
-  if (role === "Candidate") {
-    return next(
-      new ApiError("Candidate not allowed to access this resource.", 400)
-    );
-  }
   const {
-    compnayName,
+    logoUrl,
     aboutUs,
-    orgType,
-    industryType,
+    email,
+    established,
+    industry,
+    location,
+    name,
+    organizationType,
+    phone,
+    socialLinks,
     teamSize,
-    yearOfEstablishment,
-    website,
-  } = req.body;
-
-  if (
-    !compnayName ||
-    !aboutUs ||
-    !orgType ||
-    !industryType ||
-    !teamSize ||
-    !yearOfEstablishment ||
-    !website ||
-    !avatar
-  ) {
-    return next(
-      new ApiError("Please provide full CompanyProfile details.", 400)
-    );
-  }
-
-  const avatarLocalPath = req.file?.avatar[0]?.path;
-  if (!avatarLocalPath) {
-    throw new ApiError(400, "Logo file is required");
-  }
-  const avatar = await uploadOnCloudianry(avatarLocalPath);
-  if (!avatar) {
-    throw new ApiError(400, "Avatar file is required");
-  }
-
-  let coverImageLocalPath;
-  if (
-    req.files &&
-    Array.isArray(req.files.coverImage) &&
-    req.files.coverImage.length > 0
-  ) {
-    coverImageLocalPath = req.files.coverImage[0].path;
-  }
-  const coverImage = await uploadOnCloudianry(coverImageLocalPath);
-
-  const companyProfile = await CompanyProfile.create({
-    compnayName,
-    aboutUs,
-    orgType,
-    industryType,
-    teamSize,
-    yearOfEstablishment,
+    vision,
     website,
     postedBy,
-    avatar: avatar.url,
-    coverImage: coverImage?.url || "",
+  } = req.body;
+
+  console.log(req.body);
+
+
+  if (
+    !logoUrl ||
+    !aboutUs ||
+    !email ||
+    !established ||
+    !industry ||
+    !location ||
+    !name ||
+    !organizationType ||
+    !phone ||
+    !socialLinks ||
+    !teamSize ||
+    !vision ||
+    !postedBy ||
+    !website
+  ) {
+    return next(res.json("Missing fields"));
+  }
+
+  const userPosted = new mongoose.Types.ObjectId(postedBy);
+  console.log(userPosted);
+
+  const companyProfile = await CompanyProfile.create({
+    logoUrl,
+    aboutUs,
+    email,
+    established,
+    industry,
+    location,
+    name,
+    organizationType,
+    phone,
+    socialLinks,
+    teamSize,
+    vision,
+    website,
+    postedBy: userPosted,
   });
 
   if (!companyProfile) {
