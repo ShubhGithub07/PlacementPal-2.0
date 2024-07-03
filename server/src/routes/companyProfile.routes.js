@@ -14,7 +14,7 @@ const router = Router();
 router.route("/getallCompanyProfile").post(getAllCompanyProfile);
 router
   .route("/createCompanyProfile")
-  .post(authMiddleware, createCompanyProfile);
+  .post(createCompanyProfile);
 router.route("/getMyCompanyProfile").post(authMiddleware, getMyCompanyProfile);
 router.route("/update/:id").post(authMiddleware, updateCompanyProfile);
 router.route("/delete/:id").delete(authMiddleware, deleteCompanyProfile);
