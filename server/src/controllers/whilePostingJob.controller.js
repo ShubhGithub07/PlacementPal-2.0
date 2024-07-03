@@ -1,75 +1,82 @@
+import mongoose from "mongoose";
 import { asyncHandler } from "../utils/asyncHandler.js";
 import { ApiError } from "../utils/ApiError.js";
 import { PostingJob } from "../models/whilePostingJob.model.js";
 import { ApiResponse } from "../utils/ApiResponse.js";
+import { JobCard } from "../models/card.model.js";
+import { Job } from "../models/job.model.js";
+import { CompanyProfile } from "../models/companyProfile.model.js";
 
 const getAllPostingJobs = asyncHandler(async (req, res, next) => {
-  const PostingJobs = await PostingJob.find({ expired: false });
-
-  return res.status(200).json(
-    new ApiResponse(200, {
-      PostingJobs,
-    })
-  );
+  // const PostingJobs = await PostingJob.find({ expired: false });
+  // return res.status(200).json(
+  //   new ApiResponse(200, {
+  //     PostingJobs,
+  //   })
+  // );
 });
 
 const createPostingJob = asyncHandler(async (req, res, next) => {
-  const { role } = req.user;
-  if (role === "Candidate") {
-    return next(
-      new ApiError("Candidate not allowed to access this resource.", 400)
-    );
-  }
   const {
     jobTitle,
-    jobDescription,
-    jobType,
-    jobLevel,
-    Tags,
-    education,
-    experience,
-    country,
-    city,
+    jobTags,
+    jobRole,
     salaryFrom,
     salaryTo,
+    salaryType,
+    jobEdu,
+    jobExp,
+    jobType,
+    vacancies,
+    jobExpiration,
+    jobLevel,
+    jobCountry,
+    jobCity,
+    jobDesc,
+    postedBy,
   } = req.body;
 
   if (
     !jobTitle ||
-    !jobDescription ||
+    !jobTags ||
+    !jobRole ||
+    !salaryFrom ||
+    !salaryTo ||
+    !salaryType ||
+    !jobEdu ||
+    !jobExp ||
     !jobType ||
+    !vacancies ||
+    !jobExpiration ||
     !jobLevel ||
-    !Tags ||
-    !education ||
-    !experience ||
-    !country ||
-    !city ||
-    !location
+    !jobCountry ||
+    !jobCity ||
+    !jobDesc ||
+    !postedBy
   ) {
-    return next(new ApiError("Please provide full PostingJob details.", 400));
+    return next(new ApiError(400, "Missing Values"));
   }
 
-  if (!salaryFrom || !salaryTo) {
-    return next(
-      new ApiError("Please either provide fixed salary or ranged salary.", 400)
-    );
-  }
+  const userPosted = new mongoose.Types.ObjectId(postedBy);
+  console.log(userPosted);
 
-  const postedBy = req.user._id;
   const postingJob = await PostingJob.create({
     jobTitle,
-    jobDescription,
-    jobType,
-    jobLevel,
-    Tags,
-    education,
-    experience,
-    country,
-    city,
+    jobTags,
+    jobRole,
     salaryFrom,
     salaryTo,
-    expiredDate,
-    postedBy,
+    salaryType,
+    jobEdu,
+    jobExp,
+    jobType,
+    vacancies,
+    jobExpiration,
+    jobLevel,
+    jobCountry,
+    jobCity,
+    jobDesc,
+    postedBy: userPosted,
   });
 
   if (!postingJob) {
@@ -79,11 +86,64 @@ const createPostingJob = asyncHandler(async (req, res, next) => {
     );
   }
 
+  // Fetch company profile
+  const companyProfile = await CompanyProfile.findOne({
+    postedBy: userPosted,
+  }).populate("postedBy");
+
+  if (!companyProfile) {
+    throw new ApiError(404, "Company profile not found");
+  }
+
+  const address = `${postingJob.jobCity}, ${postingJob.jobCountry}`;
+
+  // Create Job Card
+  const jobCard = await JobCard.create({
+    jobTitle: postingJob.jobTitle,
+    jobType: postingJob.jobType,
+    companyName: companyProfile.name,
+    address: address,
+    salary: postingJob.salaryTo,
+    logo: companyProfile.logoUrl,
+    lastDate: postingJob.jobExpiration,
+    postedBy: userPosted,
+  });
+
+  if (!jobCard) {
+    throw new ApiError(500, "Something went wrong while creating the JobCard");
+  }
+
+  // Create Job with cardId from JobCard
+  const job = await Job.create({
+    logo: companyProfile.logoUrl,
+    jobTitle: postingJob.jobTitle,
+    companyName: companyProfile.name,
+    jobType: postingJob.jobType,
+    jobDescription: postingJob.jobDesc,
+    salaryFrom: postingJob.salaryFrom,
+    salaryTo: postingJob.salaryTo,
+    address: address,
+    jobPostedOn: new Date(),
+    vacancy: postingJob.vacancies,
+    experience: postingJob.jobExp,
+    gender: "Any",
+    jobLevel: postingJob.jobLevel,
+    cardId: jobCard._id, // Using jobCard's _id as cardId
+    compId: companyProfile._id,
+    postedBy: userPosted,
+  });
+
+  if (!job) {
+    throw new ApiError(500, "Something went wrong while creating the Job");
+  }
+
   return res.status(200).json(
     new ApiResponse(
       200,
       {
         postingJob,
+        jobCard,
+        job,
       },
       "PostingJob Posted Successfully!"
     )
