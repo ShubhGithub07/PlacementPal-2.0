@@ -24,13 +24,11 @@ const jobSchema = new Schema(
     },
     salaryFrom: {
       type: Number,
-      minLength: [4, "Salary must contain at least 4 digits"],
-      maxLength: [9, "Salary cannot exceed 9 digits"],
+      required: true,
     },
     salaryTo: {
       type: Number,
-      minLength: [4, "Salary must contain at least 4 digits"],
-      maxLength: [9, "Salary cannot exceed 9 digits"],
+      required: true,
     },
     address: {
       type: String,
@@ -45,7 +43,7 @@ const jobSchema = new Schema(
       required: true,
     },
     experience: {
-      type: Number,
+      type: String,
       required: true,
     },
     gender: {
@@ -57,6 +55,10 @@ const jobSchema = new Schema(
       required: true,
     },
     cardId: {
+      type: String,
+      required: true,
+    },
+    compId: {
       type: String,
       required: true,
     },
