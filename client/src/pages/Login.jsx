@@ -92,7 +92,7 @@ const LoginButton = ({ value, Linkto }) => {
         const decodedToken = jwtDecode(res.data.token);
         setLoggedInUser(decodedToken.role);
         setLoggedInUserId(decodedToken.userId);
-        navigate(Linkto); // Navigate to dashboard after successful login
+        navigate(Linkto);
       } else {
         setError("Login failed. Please try again.");
         console.log("else", res.data.token);

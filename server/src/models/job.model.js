@@ -63,7 +63,8 @@ const jobSchema = new Schema(
       required: true,
     },
     postedBy: {
-      type: String,
+      type: mongoose.Schema.ObjectId,
+      ref: "User",
       required: true,
     },
   },
