@@ -19,6 +19,7 @@ import {
 } from "../store/atoms/UserProfile.js";
 import SocialLinksForm from "./UserSocialLinks.jsx";
 import { jwtDecode } from "jwt-decode";
+import { useNavigate } from "react-router-dom";
 
 const UserInfo = () => {
   return (
@@ -292,6 +293,7 @@ const ContactInfoForm = () => {
 };
 
 const FinalButton = () => {
+  const navigate = useNavigate();
   const userFullname = useRecoilValue(fullNameAtom);
   const userHeadline = useRecoilValue(headlineAtom);
   const userExp = useRecoilValue(experienceAtom);
@@ -346,12 +348,16 @@ const FinalButton = () => {
       postedBy: LoggedInUserId,
     };
 
-
     try {
-      const response = await axios.post(
-        "http://localhost:7000/api/v1/userprofile/createUserProfile",
-        postData
-      );
+      await axios
+        .post(
+          "http://localhost:7000/api/v1/userprofile/createUserProfile",
+          postData
+        )
+        .then(navigate("/"))
+        .catch((err) =>
+          console.log(`Got this error while posting user profile : ${err}`)
+        );
     } catch (error) {
       console.error("Error posting data:", error);
     }

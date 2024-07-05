@@ -10,7 +10,7 @@ const JobDetails = () => {
   const [showPopup, setShowPopup] = useState(false);
   const [jobDetail, setJobDetail] = useState({});
 
-  const togglePopup = () => {
+  const onClick = () => {
     setShowPopup(!showPopup);
   };
 
@@ -50,12 +50,18 @@ const JobDetails = () => {
           </div>
         </div>
         <button
-          onClick={togglePopup}
+          onClick={onClick}
           className="bg-blue-500 text-white py-2 px-4 rounded"
         >
           Apply Now
         </button>
-        <ApplyPopup show={showPopup} onClose={togglePopup} />
+        <ApplyPopup
+          show={showPopup}
+          jobTitle={jobDetail.jobTitle}
+          jobId={id}
+
+          onClick={onClick}
+        />
       </header>
       <div className="lg:flex lg:space-x-8">
         <div className="lg:w-2/3">
