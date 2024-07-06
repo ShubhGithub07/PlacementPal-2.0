@@ -11,7 +11,6 @@ const JobDetails = () => {
   const [showPopup, setShowPopup] = useState(false);
   const [jobDetail, setJobDetail] = useState({});
   const togglePopup = () => {
-
     setShowPopup(!showPopup);
   };
 

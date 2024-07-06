@@ -36,7 +36,6 @@ const generateAccessAndRefereshTokens = async (userId) => {
   }
 };
 
-
 const registerUser = async (req, res) => {
   const body = req.body;
   const { success } = signupSchema.safeParse(req.body);
