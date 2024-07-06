@@ -60,7 +60,7 @@ const BasicInformation = () => {
             <div className=" w-1/4 h-full">
               <p>Company Logo</p>
               <div className=" mt-3 h-[68%] cursor-pointer bg-gray-200 rounded-lg">
-                <img className=" w-full rounded-lg " src={logoUrl} alt="Logo" />
+                <img className=" w-full rounded-lg h-[240px] " src={logoUrl} alt="Logo" />
                 {/* <input
                   type="text"
                   onChange={(e) => {
@@ -123,6 +123,57 @@ const CompanyDetailsArea = () => {
 
 const FoundingInfos = () => {
   const Experience = ["Level 1", "Level 2", "Level 3", "Level 4"];
+  const organizationTypes = [
+    "Corporation",
+    "Nonprofit Organization",
+    "Government Agency",
+    "Private Company",
+    "Public Company",
+    "Partnership",
+    "Sole Proprietorship",
+    "Educational Institution",
+    "Cooperative",
+    "Limited Liability Company (LLC)",
+    "Association",
+    "Trust",
+    "Joint Venture",
+    "Freelancer",
+    "Start-up",
+  ];
+
+  const industryTypes = [
+    "Information Technology",
+    "Healthcare",
+    "Finance",
+    "Education",
+    "Manufacturing",
+    "Retail",
+    "Transportation",
+    "Construction",
+    "Real Estate",
+    "Hospitality",
+    "Energy",
+    "Telecommunications",
+    "Agriculture",
+    "Aerospace",
+    "Automotive",
+    "Pharmaceuticals",
+    "Media and Entertainment",
+    "Food and Beverage",
+    "Legal Services",
+    "Nonprofit"
+  ];
+
+  const teamSizes = [
+    "1-10 employees",
+    "11-50 employees",
+    "51-200 employees",
+    "201-500 employees",
+    "501-1000 employees",
+    "1001-5000 employees",
+    "5001-10,000 employees",
+    "10,001+ employees"
+  ];
 
   const [companyOrg, setCompanyOrg] = useRecoilState(companyOrganizationAtom);
   const [companyIndust, setCompanyIndust] = useRecoilState(companyIndustryAtom);
@@ -141,7 +192,7 @@ const FoundingInfos = () => {
             <SmallDropdowns
               style="w-[32%]"
               label="Organization Type"
-              options={Experience}
+              options={organizationTypes}
               onChange={(e) => {
                 setCompanyOrg(e.target.value);
               }}
@@ -149,7 +200,7 @@ const FoundingInfos = () => {
             <SmallDropdowns
               style="w-[32%]"
               label="Industry Type"
-              options={Experience}
+              options={industryTypes}
               onChange={(e) => {
                 setCompanyIndust(e.target.value);
               }}
@@ -157,7 +208,7 @@ const FoundingInfos = () => {
             <SmallDropdowns
               style="w-[32%]"
               label="Team Size"
-              options={Experience}
+              options={teamSizes}
               onChange={(e) => {
                 setCompanyTeam(e.target.value);
               }}

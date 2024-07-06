@@ -76,7 +76,17 @@ const BasicInformation = () => {
 };
 
 const PersonalInformation = () => {
-  const Experience = ["Level 1", "Level 2", "Level 3", "Level 4"];
+  const nationality = [
+    'India'
+  ];
+  const Gender = ["Male", "Female"]
+  const maritalStatusOptions = [
+    "Single",
+    "Married",
+    "Divorced",
+    "Widowed",
+    "Separated"
+  ];
   const [userNationality, setUserNationality] = useRecoilState(nationalityAtom);
   const [userDOB, setUserDOB] = useRecoilState(DOBAtom);
   const [userGender, setUserGender] = useRecoilState(genderAtom);
@@ -95,7 +105,7 @@ const PersonalInformation = () => {
             <SmallDropdowns
               style="w-[49%]"
               label="Nationality"
-              options={Experience}
+              options={nationality}
               onChange={(e) => {
                 setUserNationality(e.target.value);
               }}
@@ -116,7 +126,7 @@ const PersonalInformation = () => {
             <SmallDropdowns
               style="w-[49%]"
               label="Gender"
-              options={Experience}
+              options={Gender}
               onChange={(e) => {
                 setUserGender(e.target.value);
               }}
@@ -125,7 +135,7 @@ const PersonalInformation = () => {
             <SmallDropdowns
               style="w-[49%]"
               label="Marital Status"
-              options={Experience}
+              options={maritalStatusOptions}
               onChange={(e) => {
                 setUserMStatus(e.target.value);
               }}
@@ -160,8 +170,16 @@ const FormComponent = () => {
 };
 
 const MultipleSmallInputBox = () => {
-  const Experience = ["Level 1", "Level 2", "Level 3", "Level 4"];
-  const Education = ["UG", "PG", "Masters", "Gawaar"];
+  const Experience = ["Fresher", "1-2 year", "less than 5 years", "5-10 years", 'more than 10 years'];
+  const Education = [
+    "Associate's Degree",
+    "Bachelor's Degree",
+    "Master's Degree",
+    "Doctorate Degree",
+    "High School Diploma",
+    "Vocational Training",
+    "Certification"
+  ];
   const [userFullname, setUserFullname] = useRecoilState(fullNameAtom);
   const [userHeadline, setUserHeadline] = useRecoilState(headlineAtom);
   const [userExp, setUserExp] = useRecoilState(experienceAtom);
@@ -181,7 +199,7 @@ const MultipleSmallInputBox = () => {
         />
         <SmallInputBoxes
           style="w-[49%]"
-          label="Title/headline"
+          label="Title"
           placeholder=""
           onChange={(e) => {
             setUserHeadline(e.target.value);

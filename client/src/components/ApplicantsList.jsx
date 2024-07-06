@@ -1,7 +1,5 @@
 import ApplicantPopup from "./ApplicantsPopup";
-import { useState, useEffect } from "react";
-import { useParams, useNavigate } from "react-router-dom";
-import axios from "axios";
+import { useState } from "react";
 
 const applications = [
   {
@@ -50,40 +48,6 @@ const applications = [
 ];
 
 const ApplicantsList = () => {
-  const { id } = useParams();
-  const [jobId, setJobId] = useState([]);
-  const [jobDetail, setJobDetail] = useState({});
-  const [userDetail, setUserDetail] = useState({});
-
-  const fetchData = async () => {
-    await axios
-      .post(`http://localhost:7000/api/v1/applicationcard/${id}`)
-      .then((res) => {
-        setJobDetail(res.data.data);
-      })
-      .catch((error) => {
-        console.error("There was an error fetching the user profile!", error);
-      });
-  };
-
-  useEffect(() => {
-    const accessToken = localStorage.getItem("token");
-    const decodedToken = jwtDecode(accessToken);
-    const userId = decodedToken.userId;
-    fetchData(userId);
-  }, []);
-
-  useEffect(() => {
-    if (appliedUser.length > 0) {
-      fetchJobDetails(jobId);
-    }
-  }, [jobId]);
-
-  console.log(compDetail);
-  console.log(jobId);
-  console.log(jobDetail);
-  const navigate = useNavigate();
-
   return (
     <>
       <header className="flex border-b-2 mx-16 mt-20 justify-between items-center pb-4 mb-6">
@@ -108,6 +72,9 @@ const ApplicantsList = () => {
             </div>
           </div>
         </div>
+        <button className="bg-blue-500 text-white py-2 px-4 rounded">
+          Apply Now
+        </button>
       </header>
       <ApplicantsSection />
     </>

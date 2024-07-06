@@ -1,7 +1,9 @@
 import React from "react";
+import { useNavigate } from "react-router-dom";
 
 const ApplicantPopup = ({ show, onClose, applicant }) => {
   if (!show || !applicant) return null;
+  const navigate = useNavigate();
 
   return (
     <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
@@ -72,10 +74,20 @@ const ApplicantPopup = ({ show, onClose, applicant }) => {
               </a>
             </div>
             <div className="flex justify-end mt-6">
-              <button className="bg-green-500 text-white px-4 py-2 rounded-md mr-2">
+              <button
+                onClick={() => {
+                  navigate("/edashboard");
+                }}
+                className="bg-green-500 text-white px-4 py-2 rounded-md mr-2"
+              >
                 Hire
               </button>
-              <button className="bg-red-500 text-white px-4 py-2 rounded-md">
+              <button
+                onClick={() => {
+                  navigate("/edashboard");
+                }}
+                className="bg-red-500 text-white px-4 py-2 rounded-md"
+              >
                 Reject
               </button>
             </div>

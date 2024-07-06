@@ -15,9 +15,9 @@ const CandidateDashboard = () => {
         userId,
       })
       .then((res) => {
-          setUserDetail(res.data.data);
-          const allJobs = res.data.data.openJobs;
-          setUserDetail((prev) => [...prev, ...allJobs.map((job) => job.jobId)]);
+        setUserDetail(res.data.data);
+        const allJobs = res.data.data.openJobs;
+        setUserDetail((prev) => [...prev, ...allJobs.map((job) => job.jobId)]);
       })
       .catch((error) => {
         console.error("There was an error fetching the user profile!", error);
@@ -158,7 +158,7 @@ const AppliedJobCard = ({
   minSalary,
   maxSalary,
   postedOn,
-  cardId
+  cardId,
 }) => {
   const navigate = useNavigate();
   return (
