@@ -10,6 +10,15 @@ import { authMiddleware } from "../middlewares/auth.middleware.js";
 
 const router = Router();
 
+
+
+
+//   --------------------------------------------------------------   //
+
+
+
+
+
 router.route("/getallResume").post(getAllResume);
 router.route("/createResume").post(authMiddleware, createResume);
 router.route("/update/:id").post(authMiddleware, updateResume);

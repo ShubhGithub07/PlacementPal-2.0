@@ -13,6 +13,14 @@ const router = Router();
 
 router.route("/getallJobCard").get(getAllJobCard);
 router.route("/createjobcard").post(createJobCard);
+
+
+
+//   --------------------------------------------------------------   //
+
+
+
+
 router.route("/getmyJobCard").post(authMiddleware, getMyJobCard);
 router.route("/update/:id").post(authMiddleware, updateJobCard);
 router.route("/delete/:id").delete(authMiddleware, deleteJobCard);

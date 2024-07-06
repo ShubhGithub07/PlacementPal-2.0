@@ -89,7 +89,7 @@ const createPostingJob = asyncHandler(async (req, res, next) => {
   // Fetch company profile
   const companyProfile = await CompanyProfile.findOne({
     postedBy: userPosted,
-  }).populate("postedBy");
+  });
 
   if (!companyProfile) {
     throw new ApiError(404, "Company profile not found");
@@ -136,6 +136,14 @@ const createPostingJob = asyncHandler(async (req, res, next) => {
   if (!job) {
     throw new ApiError(500, "Something went wrong while creating the Job");
   }
+
+  await CompanyProfile.findByIdAndUpdate(
+    companyProfile._id,
+    {
+      $push: { openJobs: { jobId: job.cardId } },
+    },
+    { new: true, useFindAndModify: false }
+  );
 
   return res.status(200).json(
     new ApiResponse(

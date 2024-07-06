@@ -34,7 +34,6 @@ const createCompanyProfile = asyncHandler(async (req, res, next) => {
 
   console.log(req.body);
 
-
   if (
     !logoUrl ||
     !aboutUs ||
@@ -93,17 +92,11 @@ const createCompanyProfile = asyncHandler(async (req, res, next) => {
 });
 
 const getMyCompanyProfile = asyncHandler(async (req, res, next) => {
-  const { role } = req.user;
-  if (role === "Candidate") {
-    return next(
-      new ApiError("Candidate not allowed to access this resource.", 400)
-    );
-  }
-  const myCompanyProfile = await CompanyProfile.find({
-    postedBy: req.user._id,
+  const myCompanyProfile = await CompanyProfile.findOne({
+    postedBy: req.body.userId,
   });
 
-  return res.status(200).json(new ApiResponse(200, { myCompanyProfile }));
+  return res.status(200).json(new ApiResponse(200, myCompanyProfile));
 });
 
 const updateCompanyProfile = asyncHandler(async (req, res, next) => {

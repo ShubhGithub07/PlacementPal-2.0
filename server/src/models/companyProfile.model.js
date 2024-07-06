@@ -5,6 +5,13 @@ const socialLinkSchema = new mongoose.Schema({
   url: { type: String, required: true },
 });
 
+const openJobsSchema = new mongoose.Schema({
+  jobId: {
+    type: String,
+    required: true,
+  },
+});
+
 const companyProfileSchema = new mongoose.Schema(
   {
     logoUrl: { type: String },
@@ -16,15 +23,12 @@ const companyProfileSchema = new mongoose.Schema(
     name: { type: String, required: true },
     organizationType: { type: String, required: true },
     phone: { type: String, required: true },
-    socialLinks: [socialLinkSchema],
+    socialLinks: { type: [socialLinkSchema], default: [] },
     teamSize: { type: String, required: true },
     vision: { type: String, required: true },
     website: { type: String, required: true },
-    postedBy: {
-      type: mongoose.Schema.Types.ObjectId,
-      ref: "User",
-      required: true,
-    },
+    openJobs: { type: [openJobsSchema], default: [] },
+    postedBy: { type: String, required: true },
   },
   { timestamps: true }
 );

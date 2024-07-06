@@ -7,6 +7,7 @@ const socialLinkSchema = new mongoose.Schema({
 
 const userProfileSchema = new Schema(
   {
+    logo: { type: String, default: "https://via.placeholder.com/150" },
     fullName: { type: String, required: true },
     headline: { type: String, required: true },
     experience: { type: String, required: true },
@@ -20,13 +21,9 @@ const userProfileSchema = new Schema(
     biography: { type: String, required: true },
     location: { type: String, required: true },
     phone: { type: String, required: true },
-    jobApplied : { type: Number, required: true },
+    jobApplied: { type: Number, required: true },
     email: { type: String, required: true },
-    postedBy: {
-      type: mongoose.Schema.ObjectId,
-      ref: "User",
-      required: true,
-    },
+    postedBy: { type: String, required: true },
   },
   { timestamps: true }
 );

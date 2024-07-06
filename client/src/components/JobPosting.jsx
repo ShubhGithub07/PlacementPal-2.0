@@ -1,10 +1,6 @@
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
-import {
-  RecoilRoot,
-  useRecoilValue,
-  useSetRecoilState,
-} from "recoil";
+import { RecoilRoot, useRecoilValue, useSetRecoilState } from "recoil";
 import {
   jobTitleAtom,
   jobTagsAtom,
@@ -315,6 +311,7 @@ const SmallDropdowns = ({ style, label, options, onChange }) => {
 };
 
 const FinalButton = () => {
+  const navigate = useNavigate();
   const jobTitle = useRecoilValue(jobTitleAtom);
   const jobTags = useRecoilValue(jobTagsAtom);
   const jobRole = useRecoilValue(jobRoleAtom);
@@ -372,11 +369,13 @@ const FinalButton = () => {
       postedBy: LoggedInUserId,
     };
 
+
     try {
       const response = await axios.post(
         "http://localhost:7000/api/v1/postingjob/createPostingJob",
         postData
       );
+      navigate("/edashboard");
       console.log("Data posted successfully:", response.data);
     } catch (error) {
       console.error("Error posting data:", error);
