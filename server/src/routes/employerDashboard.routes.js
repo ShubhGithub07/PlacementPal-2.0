@@ -11,6 +11,15 @@ import { authMiddleware } from "../middlewares/auth.middleware.js";
 
 const router = Router();
 
+
+
+
+//   --------------------------------------------------------------   //
+
+
+
+
+
 router.route("/getallEmployerDashboard").post(getAllEmployerDashboard);
 router
   .route("/createEmployerDashboard")

@@ -20,6 +20,7 @@ import {
 } from "../store/atoms/CompanyProfile";
 import SocialLinksForm from "./SocialLinks";
 import { jwtDecode } from "jwt-decode";
+import { useNavigate } from "react-router-dom";
 
 const CompanyInfo = () => {
   return (
@@ -296,6 +297,7 @@ const SocialLinksArea = () => {
 };
 
 const FinalButton = () => {
+  const navigate = useNavigate();
   const logoUrl = useRecoilValue(logoUrlAtom);
   const bannerUrl = useRecoilValue(bannerUrlAtom);
   const companyAboutUs = useRecoilValue(companyAboutUsAtom);
@@ -359,6 +361,7 @@ const FinalButton = () => {
         "http://localhost:7000/api/v1/companyprofile/createCompanyProfile",
         postData
       );
+      navigate("/");
       console.log("Data posted successfully:", response.data);
     } catch (error) {
       console.error("Error posting data:", error);

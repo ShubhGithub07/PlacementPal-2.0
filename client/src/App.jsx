@@ -30,7 +30,7 @@ function App() {
           <Route path="/resume" element={<Resume />} />
           <Route path="/companyprofile" element={<CompanyProfile />} />
           <Route path="/userprofile" element={<UserProfile />} />
-          <Route path="/viewapplicants" element={<ViewApplicants />} />
+          <Route path="/applicationcard/:id" element={<ViewApplicants />} />
           <Route path="/404" element={<NotFoundpage />} />
           <Route path="/job/:id" element={<JobDetailed />} />
           <Route path="*" element={<NotFoundpage />} />

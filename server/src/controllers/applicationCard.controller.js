@@ -3,6 +3,7 @@ import { ApiError } from "../utils/ApiError.js";
 import { ApplicationCard } from "../models/applicationCard.model.js";
 import { ApiResponse } from "../utils/ApiResponse.js";
 import { uploadOnCloudianry } from "../utils/cloudinary.js";
+import { Job } from "../models/job.model.js";
 
 const getAllApplicationCard = asyncHandler(async (req, res, next) => {
   const ApplicationCards = await ApplicationCard.find();
@@ -98,7 +99,7 @@ const updateApplicationCard = asyncHandler(async (req, res, next) => {
     );
   }
   const { id } = req.params;
-  let applicationCard = await ApplicationCard.findById(id);
+  const applicationCard = await ApplicationCard.findById(id);
   if (!applicationCard) {
     return next(new ApiError("OOPS! ApplicationCard not found.", 404));
   }
@@ -133,7 +134,9 @@ const deleteApplicationCard = asyncHandler(async (req, res, next) => {
 const getSingleApplicationCard = asyncHandler(async (req, res, next) => {
   const { id } = req.params;
   try {
-    const applicationCard = await ApplicationCard.findById(id);
+    const applicationCard = await Job.findOne({ cardId: id });
+    console.log(id);
+    console.log(applicationCard);
     if (!applicationCard) {
       return next(new ApiError("ApplicationCard not found.", 404));
     }

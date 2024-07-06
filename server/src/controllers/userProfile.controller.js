@@ -56,9 +56,8 @@ const createUserProfile = asyncHandler(async (req, res, next) => {
     return next(res.json("Missing Values"));
   }
 
-
   const userPosted = new mongoose.Types.ObjectId(postedBy);
-  console.log("Posted by : ",userPosted);
+  console.log("Posted by : ", userPosted);
 
   const userProfile = await UserProfile.create({
     fullName,
@@ -97,16 +96,11 @@ const createUserProfile = asyncHandler(async (req, res, next) => {
   );
 });
 
-const getMyUserProfile = asyncHandler(async (req, res, next) => {
-  const { role } = req.user;
-  if (role === "Employer") {
-    return next(
-      new ApiError("Employer not allowed to access this resource.", 400)
-    );
-  }
-  const myUserProfile = await UserProfile.find({ postedBy: req.user._id });
+const getMyUserProfile = asyncHandler(async (req, res) => {
 
-  return res.status(200).json(new ApiResponse(200, { myUserProfile }));
+  const myUserProfile = await UserProfile.findOne({ postedBy: req.body.userId });
+
+  return res.status(200).json(new ApiResponse(200,  myUserProfile ));
 });
 
 const updateUserProfile = asyncHandler(async (req, res, next) => {
