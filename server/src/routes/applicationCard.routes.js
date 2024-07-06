@@ -11,6 +11,14 @@ import { authMiddleware } from "../middlewares/auth.middleware.js";
 
 const router = Router();
 
+
+
+
+//   --------------------------------------------------------------   //
+
+
+
+
 router.route("/getallApplicationCard").post(getAllApplicationCard);
 router
   .route("/createApplicationCard")
@@ -20,6 +28,6 @@ router
   .post(authMiddleware, getMyApplicationCard);
 router.route("/update/:id").post(authMiddleware, updateApplicationCard);
 router.route("/delete/:id").delete(authMiddleware, deleteApplicationCard);
-router.route("/:id").get(authMiddleware, getSingleApplicationCard);
+router.route("/:id").get(getSingleApplicationCard);
 
 export default router;

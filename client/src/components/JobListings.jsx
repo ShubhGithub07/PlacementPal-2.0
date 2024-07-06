@@ -23,18 +23,16 @@ const SearchArea = () => {
   const [jobs, setJobs] = useState([]);
   const [filter, setFilter] = useState("");
 
-  useEffect(() => {
-    axios
-      .get(
-        "http://localhost:7000/api/v1/jobcard/getalljobcard?filter=" + filter
-      )
-      .then((response) => {
-        setJobs(response.data.JobCards);
-      })
-      .catch((error) => {
-        console.error("There was an error fetching the jobs!", error);
-      });
-  }, [filter]);
+  //   useEffect(() => {
+  //     axios
+  //       .get("http://localhost:3000/api/v1/job/bulk?filter=" + filter)
+  //       .then((response) => {
+  //         setJob(response.data.job);
+  //       })
+  //       .catch((error) => {
+  //         console.error("There was an error fetching the jobs!", error);
+  //       });
+  //   }, [filter]);
 
   return (
     <>
@@ -87,11 +85,12 @@ const SearchArea = () => {
             </a>
           </div>
         </div>
-        <div className="h-auto mx-8 mt-10 lg:mx-16 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
+        {/* <div>
           {jobs.map((job) => (
-            <JobCard job={job} key={job._id} />
+            // <JobCard job={job} key={job._id} />
+            <JobCard />
           ))}
-        </div>
+        </div> */}
       </>
     </>
   );

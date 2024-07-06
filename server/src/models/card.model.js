@@ -5,14 +5,10 @@ const jobCardSchema = new Schema(
     jobTitle: {
       type: String,
       required: [true, "Please provide a title."],
-      minLength: [3, "Title must contain at least 3 Characters!"],
-      maxLength: [30, "Title cannot exceed 30 Characters!"],
     },
     jobType: {
       type: String,
       required: [true, "Please provide a title."],
-      minLength: [3, "Title must contain at least 3 Characters!"],
-      maxLength: [30, "Title cannot exceed 30 Characters!"],
     },
     companyName: {
       type: String,
@@ -24,15 +20,14 @@ const jobCardSchema = new Schema(
     },
     salary: {
       type: Number,
-      minLength: [4, "Salary must contain at least 4 digits"],
-      maxLength: [9, "Salary cannot exceed 9 digits"],
+      required: true,
     },
     logo: {
       type: String,
       required: true,
     },
     lastDate: {
-      type: Number,
+      type: Date,
       required: true,
     },
     postedBy: {

@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { useRecoilState } from "recoil";
-import { companySocialLinksAtom } from "../store/atoms/CompanyProfile";
+import { userSocialLinksAtom } from "../store/atoms/UserProfile";
 
 const socialOptions = [
   { label: "Facebook", value: "facebook" },
@@ -9,42 +9,8 @@ const socialOptions = [
   { label: "YouTube", value: "youtube" },
 ];
 
-const SocialLink = ({ index, link, handleRemove, handleChange }) => {
-  return (
-    <>
-      <div className="flex items-center my-2">
-        <select
-          onChange={(e) => handleChange(index, "platform", e.target.value)}
-          value={link.platform}
-          className="w-1/3 p-2 border-2 outline-none rounded-md mr-2"
-        >
-          <option value="" hidden >{link.platform}</option> {/* Add a default option */}
-          {socialOptions.map((option) => (
-            <option key={option.value} value={option.value}>
-              {option.label}
-            </option>
-          ))}
-        </select>
-        <input
-          type="text"
-          value={link.url}
-          onChange={(e) => handleChange(index, "url", e.target.value)}
-          placeholder="Profile link/url..."
-          className="w-2/3 p-2 border-2 outline-none rounded-md"
-        />
-        <button
-          onClick={() => handleRemove(index)}
-          className="ml-2 p-2 border-2 rounded-md text-red-500"
-        >
-          ✕
-        </button>
-      </div>
-    </>
-  );
-};
-
 const SocialLinksForm = () => {
-  const [links, setLinks] = useRecoilState(companySocialLinksAtom);
+  const [links, setLinks] = useRecoilState(userSocialLinksAtom);
 
   const handleAddLink = () => {
     setLinks([...links, { platform: "", url: "" }]);
@@ -80,6 +46,42 @@ const SocialLinksForm = () => {
         + Add New Social Link
       </button>
     </div>
+  );
+};
+
+const SocialLink = ({ index, link, handleRemove, handleChange }) => {
+  return (
+    <>
+      <div className="flex items-center my-2">
+        <select
+          onChange={(e) => handleChange(index, "platform", e.target.value)}
+          value={link.platform}
+          className="w-1/3 p-2 border-2 outline-none rounded-md mr-2"
+        >
+          <option value="" hidden>
+            {link.platform}
+          </option>
+          {socialOptions.map((option) => (
+            <option key={option.value} value={option.value}>
+              {option.label}
+            </option>
+          ))}
+        </select>
+        <input
+          type="text"
+          value={link.url}
+          onChange={(e) => handleChange(index, "url", e.target.value)}
+          placeholder="Profile link/url..."
+          className="w-2/3 p-2 border-2 outline-none rounded-md"
+        />
+        <button
+          onClick={() => handleRemove(index)}
+          className="ml-2 p-2 border-2 rounded-md text-red-500"
+        >
+          ✕
+        </button>
+      </div>
+    </>
   );
 };
 

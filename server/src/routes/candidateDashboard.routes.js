@@ -11,6 +11,14 @@ import { authMiddleware } from "../middlewares/auth.middleware.js";
 
 const router = Router();
 
+
+
+
+//   --------------------------------------------------------------   //
+
+
+
+
 router.route("/getallCandidateDashboard").post(getAllCandidateDashboard);
 router
   .route("/createCandidateDashboard")

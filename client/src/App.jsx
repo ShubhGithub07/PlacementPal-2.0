@@ -1,6 +1,7 @@
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { Home } from "./pages/Home.jsx";
 import { Jobs } from "./pages/Jobs.jsx";
+import { JobPostingPage } from "./pages/JobPostingPage.jsx";
 import { Dashboard, IfCanLogged, IfEmpLogged } from "./pages/Dashboard.jsx";
 import { Notification } from "./pages/Notification.jsx";
 import { Login } from "./pages/Login.jsx";
@@ -19,6 +20,7 @@ function App() {
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/jobs" element={<Jobs />} />
+          <Route path="/jobposting" element={<JobPostingPage />} />
           <Route path="/dashboard" element={<Dashboard />} />
           <Route path="/cdashboard" element={<IfCanLogged />} />
           <Route path="/edashboard" element={<IfEmpLogged />} />
@@ -28,7 +30,7 @@ function App() {
           <Route path="/resume" element={<Resume />} />
           <Route path="/companyprofile" element={<CompanyProfile />} />
           <Route path="/userprofile" element={<UserProfile />} />
-          <Route path="/viewapplicants" element={<ViewApplicants />} />
+          <Route path="/applicationcard/:id" element={<ViewApplicants />} />
           <Route path="/404" element={<NotFoundpage />} />
           <Route path="/job/:id" element={<JobDetailed />} />
           <Route path="*" element={<NotFoundpage />} />

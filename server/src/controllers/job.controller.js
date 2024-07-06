@@ -76,17 +76,26 @@ const postJob = asyncHandler(async (req, res, next) => {
   );
 });
 
-const getMyJobs = asyncHandler(async (req, res, next) => {
-  const { role } = req.user;
-  if (role === "Candidate") {
-    return next(
-      new ApiError("Candidate not allowed to access this resource.", 400)
-    );
-  }
-  const myJobs = await Job.find({ postedBy: req.user._id });
+///////////////////////////////////////////////////
 
-  return res.status(200).json(new ApiResponse(200, { myJobs }));
+const getMyJobs = asyncHandler(async (req, res) => {
+  const { jobIds } = req.body;
+  try {
+    const jobs = await Job.find({ cardId: { $in: jobIds } });
+    return res.status(200).json(
+      new ApiResponse(
+        200,
+        jobs,
+        "Job Posted Successfully!"
+      )
+    );
+  } catch (error) {
+    console.error("Error fetching jobs:", error);
+    return [];
+  }
 });
+
+////////////////////////////////////////////////////
 
 const updateJob = asyncHandler(async (req, res, next) => {
   const { role } = req.user;
