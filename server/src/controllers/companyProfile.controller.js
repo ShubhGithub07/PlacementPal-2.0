@@ -32,7 +32,6 @@ const createCompanyProfile = asyncHandler(async (req, res, next) => {
     postedBy,
   } = req.body;
 
-  console.log(req.body);
 
   if (
     !logoUrl ||

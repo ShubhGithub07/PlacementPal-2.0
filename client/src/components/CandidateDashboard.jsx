@@ -2,6 +2,7 @@ import axios from "axios";
 import { useCallback, useEffect, useMemo, useState } from "react";
 import { jwtDecode } from "jwt-decode";
 import { format, parseISO } from "date-fns";
+import { BsBriefcase, BsBookmark, BsAlarm } from "react-icons/bs";
 import { useNavigate } from "react-router-dom";
 
 const CandidateDashboard = () => {
@@ -56,21 +57,21 @@ const CandidateDashboard = () => {
 
         <div className=" h-1/5 mt-10 justify-between mx-8 lg:mx-10 items-start grid grid-cols-3">
           <DashboardSummaryCard
-            value={userDetail.jobApplied + 1}
+            value={userDetail.jobApplied}
             title="Applied jobs"
-            url="img"
+            icon={<BsBriefcase className=" text-3xl" />}
             color="bg-[#e7f0fa]"
           />
           <DashboardSummaryCard
             value="0"
             title="Favorite jobs"
-            url="img"
+            icon={<BsBookmark className=" text-3xl" />}
             color="bg-[#fff6e6]"
           />
           <DashboardSummaryCard
             value="0"
             title="Jobs alerts"
-            url="img"
+            icon={<BsAlarm className=" text-3xl" />}
             color="bg-[#e7f6ea]"
           />
         </div>
@@ -107,7 +108,7 @@ const CandidateDashboard = () => {
   );
 };
 
-const DashboardSummaryCard = ({ value, title, url, color }) => {
+const DashboardSummaryCard = ({ value, title, icon, color }) => {
   return (
     <>
       <div
@@ -118,7 +119,7 @@ const DashboardSummaryCard = ({ value, title, url, color }) => {
           <div className=" text-lg text-gray-700 ">{title}</div>
         </div>
         <div className=" w-20 h-20 bg-white flex justify-center items-center rounded-lg">
-          {url}
+          {icon}
         </div>
       </div>
     </>

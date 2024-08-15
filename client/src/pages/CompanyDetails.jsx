@@ -10,7 +10,6 @@ const isAuthenticated = () => {
 
 export const CompanyDetails = () => {
   const isLoggedIn = isAuthenticated();
-  console.log(isLoggedIn);
 
   if (!isLoggedIn) {
     navigate("/404", { replace: true });

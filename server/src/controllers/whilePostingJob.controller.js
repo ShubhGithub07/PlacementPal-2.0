@@ -58,7 +58,6 @@ const createPostingJob = asyncHandler(async (req, res, next) => {
   }
 
   const userPosted = new mongoose.Types.ObjectId(postedBy);
-  console.log(userPosted);
 
   const postingJob = await PostingJob.create({
     jobTitle,

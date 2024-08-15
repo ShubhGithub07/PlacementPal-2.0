@@ -94,6 +94,40 @@ const getMyJobs = asyncHandler(async (req, res) => {
   }
 });
 
+//   Shortlisting User
+
+const shortlist = asyncHandler(async (req, res) => {
+  const { userId, cardId } = req.body;
+
+  try {
+    const jobs = await Job.updateOne(
+      { $and: [{ "appliedUsers.userId": userId }, { cardId }] },
+      { $set: { "appliedUsers.$.isShortlisted": true } }
+    );
+    return res.status(200).json(new ApiResponse(200, jobs, "Shortlisted!"));
+  } catch (error) {
+    console.error("Error fetching jobs:", error);
+    return [];
+  }
+});
+
+//   Rejecting User
+
+const reject = asyncHandler(async (req, res) => {
+  const { userId, cardId } = req.body;
+
+  try {
+    const jobs = await Job.updateOne(
+      { $and: [{ "appliedUsers.userId": userId }, { cardId }] },
+      { $pull: { appliedUsers: { userId } } }
+    );
+    return res.status(200).json(new ApiResponse(200, jobs, "Shortlisted!"));
+  } catch (error) {
+    console.error("Error deleting user:", error);
+    return [];
+  }
+});
+
 ////////////////////////////////////////////////////
 
 const updateJob = asyncHandler(async (req, res, next) => {
@@ -150,4 +184,13 @@ const getSingleJob = asyncHandler(async (req, res, next) => {
   }
 });
 
-export { getAllJobs, postJob, getMyJobs, updateJob, deleteJob, getSingleJob };
+export {
+  getAllJobs,
+  postJob,
+  getMyJobs,
+  shortlist,
+  reject,
+  updateJob,
+  deleteJob,
+  getSingleJob,
+};

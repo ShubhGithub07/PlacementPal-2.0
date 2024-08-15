@@ -34,8 +34,6 @@ const createUserProfile = asyncHandler(async (req, res, next) => {
     postedBy,
   } = req.body;
 
-  console.log(req.body);
-
   if (
     !fullName ||
     !headline ||

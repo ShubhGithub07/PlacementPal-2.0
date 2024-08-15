@@ -72,11 +72,6 @@ const LoginButton = ({ value, Linkto }) => {
   const setLoggedInUserId = useSetRecoilState(loggedInUserIdAtom);
   const LoggedInUserId = useRecoilValue(loggedInUserIdAtom);
 
-  useEffect(() => {
-    console.log("after useEffect : user name -> ", LoggedInUser);
-    console.log("after useEffect : user Id -> ", LoggedInUserId);
-  }, [LoggedInUserId]);
-
   const handleRegister = async () => {
     setIsLoading(true);
     setError(null);

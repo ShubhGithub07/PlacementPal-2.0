@@ -1,7 +1,13 @@
 const ChooiseArea = () => {
+  const token = localStorage.getItem("token");
+
   return (
     <>
-      <div className="h-auto bg-[#f7f7f8] py-20 grid grid-cols-1 md:grid-cols-2 gap-4 p-4">
+      <div
+        className={`h-auto ${
+          token ? "hidden" : ""
+        } bg-[#f7f7f8] py-20 grid grid-cols-1 md:grid-cols-2 gap-4 p-4`}
+      >
         <ChooiseCard username="Become a Candidate" />
         <ChooiseCard username="Become a Employer" />
       </div>
@@ -9,7 +15,7 @@ const ChooiseArea = () => {
   );
 };
 
-const ChooiseCard = ({username}) => {
+const ChooiseCard = ({ username }) => {
   return (
     <>
       <div className="mx-auto h-auto md:h-[300px] my-8 bg-white border border-slate-100 shadow hover:shadow-lg rounded-xl flex flex-col md:flex-row p-4">

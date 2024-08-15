@@ -19,6 +19,7 @@ import {
   jobDescAtom,
 } from "../store/atoms/JobDetail.js";
 import { jwtDecode } from "jwt-decode";
+import { useState } from "react";
 
 const JobInfo = () => {
   return (
@@ -42,7 +43,23 @@ const JobInfoInputs = () => {
 };
 
 const JobBasicDetail = () => {
-  const Education = ["UG", "PG", "Masters", "Gawaar"];
+  const jobRoles = [
+    "Software Developer",
+    "Data Analyst",
+    "Project Manager",
+    "Graphic Designer",
+    "Marketing Manager",
+    "Sales Executive",
+    "Customer Support Representative",
+    "HR Manager",
+    "Product Manager",
+    "Business Analyst",
+    "Web Developer",
+    "Systems Administrator",
+    "Content Writer",
+    "UX/UI Designer",
+    "Network Engineer",
+  ];
 
   const setJobTitle = useSetRecoilState(jobTitleAtom);
   const setJobTags = useSetRecoilState(jobTagsAtom);
@@ -78,7 +95,7 @@ const JobBasicDetail = () => {
           <SmallDropdowns
             style="w-[49%]"
             label="Job Role"
-            options={Education}
+            options={jobRoles}
             onChange={(e) => {
               setJobRole(e.target.value);
             }}
@@ -94,7 +111,15 @@ const JobSalary = () => {
   const setMaxSalary = useSetRecoilState(maxSalaryAtom);
   const setSalaryType = useSetRecoilState(salaryTypeAtom);
 
-  const Education = ["UG", "PG", "Masters", "Gawaar"];
+  const salaryTypes = [
+    "Annual",
+    "Monthly",
+    "Hourly",
+    "Contract",
+    "Commission-based",
+    "Freelance",
+  ];
+
   return (
     <>
       <div className=" h-auto bg-[#f7f7f8]">
@@ -124,7 +149,7 @@ const JobSalary = () => {
           <SmallDropdowns
             style="w-[32%]"
             label="Salary Type"
-            options={Education}
+            options={salaryTypes}
             onChange={(e) => {
               setSalaryType(e.target.value);
             }}
@@ -143,7 +168,61 @@ const AdvInfo = () => {
   const setJobExpiration = useSetRecoilState(jobExpirationAtom);
   const setJobLevel = useSetRecoilState(jobLevelAtom);
 
-  const Education = ["UG", "PG", "Masters", "Gawaar"];
+  const Education = [
+    "Secondary School Certificate (SSC) / 10th Standard",
+    "Higher Secondary Certificate (HSC) / 12th Standard",
+    "Diploma in Engineering",
+    "Bachelor of Arts (BA)",
+    "Bachelor of Science (BSc)",
+    "Bachelor of Commerce (BCom)",
+    "Bachelor of Engineering (BE) / Bachelor of Technology (BTech)",
+    "Bachelor of Business Administration (BBA)",
+    "Master of Arts (MA)",
+    "Master of Science (MSc)",
+    "Master of Business Administration (MBA)",
+    "Master of Technology (MTech)",
+    "Doctor of Philosophy (PhD)",
+    "Chartered Accountant (CA)",
+    "Certified Information Systems Auditor (CISA)",
+  ];
+
+  const experienceLevels = [
+    "Internship",
+    "Entry Level",
+    "Junior",
+    "Mid Level",
+    "Senior",
+    "Lead",
+    "Manager",
+    "Director",
+    "VP",
+    "Executive",
+  ];
+
+  const jobTypes = [
+    "Full-Time",
+    "Part-Time",
+    "Contract",
+    "Freelance",
+    "Internship",
+    "Temporary",
+    "Remote",
+    "Seasonal",
+  ];
+
+  const jobLevels = [
+    "Entry Level",
+    "Junior",
+    "Mid-Level",
+    "Senior",
+    "Lead",
+    "Manager",
+    "Director",
+    "VP",
+    "C-Level",
+    "Intern",
+  ];
+
   return (
     <>
       <div className=" pt-5 h-auto bg-[#f7f7f8]">
@@ -163,7 +242,7 @@ const AdvInfo = () => {
           <SmallDropdowns
             style="w-[32%]"
             label="Experience"
-            options={Education}
+            options={experienceLevels}
             onChange={(e) => {
               setJobExp(e.target.value);
             }}
@@ -171,7 +250,7 @@ const AdvInfo = () => {
           <SmallDropdowns
             style="w-[32%]"
             label="Job Type"
-            options={Education}
+            options={jobTypes}
             onChange={(e) => {
               setJobType(e.target.value);
             }}
@@ -200,7 +279,7 @@ const AdvInfo = () => {
           <SmallDropdowns
             style="w-[32%]"
             label="Job Level"
-            options={Education}
+            options={jobLevels}
             onChange={(e) => {
               setJobLevel(e.target.value);
             }}
@@ -212,10 +291,210 @@ const AdvInfo = () => {
 };
 
 const JobLocation = () => {
-  const setJobCountry = useSetRecoilState(jobCountryAtom);
-  const setJobCity = useSetRecoilState(jobCityAtom);
+  const countries = [
+    "United States",
+    "Canada",
+    "United Kingdom",
+    "Australia",
+    "India",
+    "Germany",
+    "France",
+    "Japan",
+    "China",
+    "Brazil",
+    "South Africa",
+    "Mexico",
+    "Spain",
+    "Italy",
+    "Netherlands",
+  ];
 
-  const Education = ["UG", "PG", "Masters", "Gawaar"];
+  const cities = {
+    "United States": [
+      "New York",
+      "Los Angeles",
+      "Chicago",
+      "Houston",
+      "San Francisco",
+      "Seattle",
+      "Miami",
+      "Boston",
+      "Washington D.C.",
+      "Dallas",
+    ],
+    Canada: [
+      "Toronto",
+      "Vancouver",
+      "Montreal",
+      "Calgary",
+      "Ottawa",
+      "Edmonton",
+      "Winnipeg",
+      "Quebec City",
+      "Halifax",
+      "Victoria",
+    ],
+    "United Kingdom": [
+      "London",
+      "Manchester",
+      "Birmingham",
+      "Glasgow",
+      "Liverpool",
+      "Edinburgh",
+      "Bristol",
+      "Leeds",
+      "Sheffield",
+      "Cardiff",
+    ],
+    Australia: [
+      "Sydney",
+      "Melbourne",
+      "Brisbane",
+      "Perth",
+      "Adelaide",
+      "Gold Coast",
+      "Hobart",
+      "Canberra",
+      "Darwin",
+      "Newcastle",
+    ],
+    India: [
+      "Delhi",
+      "Mumbai",
+      "Bangalore",
+      "Hyderabad",
+      "Chennai",
+      "Kolkata",
+      "Pune",
+      "Ahmedabad",
+      "Jaipur",
+      "Chandigarh",
+    ],
+    Germany: [
+      "Berlin",
+      "Munich",
+      "Hamburg",
+      "Frankfurt",
+      "Cologne",
+      "Stuttgart",
+      "Dusseldorf",
+      "Dortmund",
+      "Essen",
+      "Leipzig",
+    ],
+    France: [
+      "Paris",
+      "Marseille",
+      "Lyon",
+      "Toulouse",
+      "Nice",
+      "Nantes",
+      "Montpellier",
+      "Strasbourg",
+      "Bordeaux",
+      "Lille",
+    ],
+    Japan: [
+      "Tokyo",
+      "Osaka",
+      "Kyoto",
+      "Nagoya",
+      "Yokohama",
+      "Fukuoka",
+      "Kobe",
+      "Sapporo",
+      "Hiroshima",
+      "Sendai",
+    ],
+    China: [
+      "Beijing",
+      "Shanghai",
+      "Guangzhou",
+      "Shenzhen",
+      "Chengdu",
+      "Hong Kong",
+      "Wuhan",
+      "Xi'an",
+      "Hangzhou",
+      "Nanjing",
+    ],
+    Brazil: [
+      "Sao Paulo",
+      "Rio de Janeiro",
+      "Brasilia",
+      "Salvador",
+      "Fortaleza",
+      "Belo Horizonte",
+      "Manaus",
+      "Curitiba",
+      "Recife",
+      "Porto Alegre",
+    ],
+    "South Africa": [
+      "Johannesburg",
+      "Cape Town",
+      "Durban",
+      "Pretoria",
+      "Port Elizabeth",
+      "Bloemfontein",
+      "East London",
+      "Nelspruit",
+      "Polokwane",
+      "Kimberley",
+    ],
+    Mexico: [
+      "Mexico City",
+      "Guadalajara",
+      "Monterrey",
+      "Cancun",
+      "Puebla",
+      "Merida",
+      "San Luis Potosi",
+      "Tijuana",
+      "Leon",
+      "Queretaro",
+    ],
+    Spain: [
+      "Madrid",
+      "Barcelona",
+      "Valencia",
+      "Seville",
+      "Malaga",
+      "Bilbao",
+      "Granada",
+      "Alicante",
+      "Murcia",
+      "Valladolid",
+    ],
+    Italy: [
+      "Rome",
+      "Milan",
+      "Naples",
+      "Turin",
+      "Palermo",
+      "Genoa",
+      "Bologna",
+      "Florence",
+      "Venice",
+      "Catania",
+    ],
+    Netherlands: [
+      "Amsterdam",
+      "Rotterdam",
+      "The Hague",
+      "Utrecht",
+      "Eindhoven",
+      "Groningen",
+      "Arnhem",
+      "Maastricht",
+      "Leiden",
+      "Delft",
+    ],
+  };
+
+  const setJobCountry = useSetRecoilState(jobCountryAtom);
+  const [city, setCity] = useState([]);
+  const setJobCity = useSetRecoilState(jobCityAtom);
   return (
     <>
       <div className=" h-[200px] my-8 mx-16 rounded-lg bg-[#f1f2f4]">
@@ -227,16 +506,18 @@ const JobLocation = () => {
           <SmallDropdowns
             style="w-[49%]"
             label="Country"
-            options={Education}
+            options={countries}
             onChange={(e) => {
-              setJobCountry(e.target.value);
+              const Country = e.target.value;
+              setJobCountry(Country);
+              setCity(cities[Country]);
             }}
           />
 
           <SmallDropdowns
             style="w-[49%]"
             label="City"
-            options={Education}
+            options={city}
             onChange={(e) => {
               setJobCity(e.target.value);
             }}
@@ -368,7 +649,6 @@ const FinalButton = () => {
       jobDesc,
       postedBy: LoggedInUserId,
     };
-
 
     try {
       const response = await axios.post(

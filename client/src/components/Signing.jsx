@@ -1,6 +1,11 @@
 import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import { RecoilRoot, useRecoilState, useSetRecoilState, useRecoilValue } from "recoil";
+import {
+  RecoilRoot,
+  useRecoilState,
+  useSetRecoilState,
+  useRecoilValue,
+} from "recoil";
 import {
   emailAtom,
   firstNameAtom,
@@ -9,7 +14,10 @@ import {
   confPasswordAtom,
   selectedAtom,
 } from "../store/atoms/Singing";
-import { loggedInUserAtom, loggedInUserIdAtom } from "../store/atoms/LoggedInUser";
+import {
+  loggedInUserAtom,
+  loggedInUserIdAtom,
+} from "../store/atoms/LoggedInUser";
 import axios from "axios";
 
 const Signing = () => {
@@ -159,21 +167,21 @@ const SubmitButton = ({ value }) => {
     }
 
     try {
-      await axios.post("http://localhost:7000/api/v1/users/register", {
-        firstName,
-        lastName,
-        email,
-        password,
-        role: selected,
-      }).then((res) => {
-        localStorage.setItem("token", res.data.token);
-        console.log(res.data.token);
-        const userId = res.data.userId
-        setLoggedInUserId(userId);
-      })
-      ;
+      await axios
+        .post("http://localhost:7000/api/v1/users/register", {
+          firstName,
+          lastName,
+          email,
+          password,
+          role: selected,
+        })
+        .then((res) => {
+          localStorage.setItem("token", res.data.token);
+          const userId = res.data.userId;
+          setLoggedInUserId(userId);
+        });
 
-      setLoggedInUser(selected)
+      setLoggedInUser(selected);
       navigate("/");
     } catch (err) {
       setError("Registration failed");
@@ -183,15 +191,17 @@ const SubmitButton = ({ value }) => {
   };
 
   return (
-    <div className="h-12 mt-5 flex justify-center items-center">
-      <button
-        onClick={handleRegister}
-        className="w-3/5 md:w-2/5 bg-blue-500 h-full flex justify-center items-center text-white font-semibold text-xl rounded-xl shadow hover:shadow-xl"
-      >
-        {isLoading ? "Loading..." : value}
-      </button>
-      {error && <p className="text-red-500 mt-2">{error}</p>}
-    </div>
+    <>
+      <div className="h-12 mt-5 flex justify-center items-center">
+        <button
+          onClick={handleRegister}
+          className="w-3/5 md:w-2/5 bg-blue-500 h-full flex justify-center items-center text-white font-semibold text-xl rounded-xl shadow hover:shadow-xl"
+        >
+          {isLoading ? "Loading..." : value}
+        </button>
+      </div>
+      {error && <p className="text-red-500 text-center mt-2">{error}</p>}
+    </>
   );
 };
 

@@ -135,8 +135,6 @@ const getSingleApplicationCard = asyncHandler(async (req, res, next) => {
   const { id } = req.params;
   try {
     const applicationCard = await Job.findOne({ cardId: id });
-    console.log(id);
-    console.log(applicationCard);
     if (!applicationCard) {
       return next(new ApiError("ApplicationCard not found.", 404));
     }

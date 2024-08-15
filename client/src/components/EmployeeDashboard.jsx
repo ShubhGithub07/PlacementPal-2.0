@@ -2,6 +2,7 @@ import { useState, useEffect, useCallback } from "react";
 import ApplicantPopup from "./ApplicantsPopup";
 import { jwtDecode } from "jwt-decode";
 import axios from "axios";
+import { BsBriefcase, BsBookmark } from "react-icons/bs";
 import { useNavigate } from "react-router-dom";
 
 const EmployeeDashboard = () => {
@@ -71,13 +72,13 @@ const EmployeeDashboard = () => {
           <DashboardSummaryCard
             value={jobDetail.length}
             title="Open jobs"
-            url="img"
+            logo={<BsBriefcase className=" text-3xl" />}
             color="bg-[#e7f0fa]"
           />
           <DashboardSummaryCard
-            value="0"
+            value={Math.floor(Math.random() * 20)}
             title="Saved Candidates"
-            url="img"
+            logo={<BsBookmark className=" text-3xl" />}
             color="bg-[#fff6e6]"
           />
           <button
@@ -108,6 +109,7 @@ const EmployeeDashboard = () => {
               key={index}
               jobTitle={job.jobTitle}
               jobType={job.jobType}
+              appliedUsers={job.appliedUsers.length}
               daysRemaining={Math.floor(Math.random() * 20)}
               cardId={job.cardId}
             />
@@ -118,7 +120,7 @@ const EmployeeDashboard = () => {
   );
 };
 
-const DashboardSummaryCard = ({ value, title, url, color }) => {
+const DashboardSummaryCard = ({ value, title, logo, color }) => {
   return (
     <>
       <div
@@ -129,14 +131,14 @@ const DashboardSummaryCard = ({ value, title, url, color }) => {
           <div className=" text-lg text-gray-700 ">{title}</div>
         </div>
         <div className=" w-20 h-20 bg-white flex justify-center items-center rounded-lg">
-          {url}
+          {logo}
         </div>
       </div>
     </>
   );
 };
 
-const ApplicantJobCard = ({ jobTitle, jobType, daysRemaining, cardId }) => {
+const ApplicantJobCard = ({ jobTitle, jobType, daysRemaining, appliedUsers, cardId }) => {
   const navigate = useNavigate();
   const [showPopup, setShowPopup] = useState(false);
 
@@ -160,7 +162,7 @@ const ApplicantJobCard = ({ jobTitle, jobType, daysRemaining, cardId }) => {
           Active
         </div>
         <div className=" w-1/6 pl-7 flex justify-start items-center text-[#5e6670]">
-          675 Applications
+          {appliedUsers} Applications
         </div>
         <div className=" w-1/6 flex justify-start items-center">
           <button
