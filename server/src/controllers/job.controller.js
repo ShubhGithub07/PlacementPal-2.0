@@ -4,13 +4,14 @@ import { Job } from "../models/job.model.js";
 import { ApiResponse } from "../utils/ApiResponse.js";
 
 const getAllJobs = asyncHandler(async (req, res, next) => {
-  const jobs = await Job.find({ expired: false });
+  const { userId } = req.body;
 
-  return res.status(200).json(
-    new ApiResponse(200, {
-      jobs,
-    })
-  );
+  try {
+    const jobs = await Job.find({ "appliedUsers.userId": userId });
+    res.status(200).json(jobs);
+  } catch (error) {
+    res.status(500).json({ message: "Error fetching jobs", error });
+  }
 });
 
 const postJob = asyncHandler(async (req, res, next) => {
@@ -78,17 +79,15 @@ const postJob = asyncHandler(async (req, res, next) => {
 
 ///////////////////////////////////////////////////
 
+// Using this endpoint to fetch the jobs using compID for employee dashboard
+
 const getMyJobs = asyncHandler(async (req, res) => {
-  const { jobIds } = req.body;
+  const { compId } = req.body;
   try {
-    const jobs = await Job.find({ cardId: { $in: jobIds } });
-    return res.status(200).json(
-      new ApiResponse(
-        200,
-        jobs,
-        "Job Posted Successfully!"
-      )
-    );
+    const jobs = await Job.find({ compId });
+    return res
+      .status(200)
+      .json(new ApiResponse(200, jobs, "Job Posted Successfully!"));
   } catch (error) {
     console.error("Error fetching jobs:", error);
     return [];

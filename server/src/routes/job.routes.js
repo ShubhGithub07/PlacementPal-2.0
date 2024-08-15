@@ -13,6 +13,10 @@ const router = Router();
 
 router.route("/postjob").post(postJob);
 
+router.route("/getall").post(getAllJobs);
+
+router.route("/getmyjobs").post(getMyJobs);
+
 
 
 //   --------------------------------------------------------------   //
@@ -20,8 +24,6 @@ router.route("/postjob").post(postJob);
 
 
 
-router.route("/getall").post(getAllJobs);
-router.route("/getmyjobs").post(getMyJobs);
 router.route("/update/:id").post(authMiddleware, updateJob);
 router.route("/delete/:id").delete(authMiddleware, deleteJob);
 router.route("/:id").get(getSingleJob);

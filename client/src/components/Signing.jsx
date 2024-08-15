@@ -174,7 +174,7 @@ const SubmitButton = ({ value }) => {
       ;
 
       setLoggedInUser(selected)
-      navigate("/"); // Redirect to a protected route after successful registration
+      navigate("/");
     } catch (err) {
       setError("Registration failed");
     } finally {

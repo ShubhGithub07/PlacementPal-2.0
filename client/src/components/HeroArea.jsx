@@ -29,36 +29,52 @@ const HeroText = () => {
             Find Jobs
           </Link>
         </div>
-        <div className="w-full lg:w-1/2 h-full flex justify-center items-center mt-8 lg:mt-0">
-          Images
+        <div className="  h-auto w-auto lg:w-1/2 flex justify-center items-center mt-8 lg:mt-0">
+          <img src="https://i.imgur.com/PMe1Xly.jpeg" className=" w-2/3 " />
         </div>
       </div>
       <div className="h-auto px-8 lg:px-32 py-8 flex flex-wrap justify-evenly items-center w-full border-b-2">
-        <CounterCard Count={"30,000"} Record={"Azam"} BgColor={"bg-white"} />
-        <CounterCard Count={"87,000"} Record={"Jobs"} BgColor={"bg-white"} />
         <CounterCard
-          Count={"55,000"}
-          Record={"Candidates"}
-          BgColor={"bg-white"}
+          Count="30,000"
+          Record="New Jobs"
+          BgColor="bg-white"
+          BgLink="public\briefcase.png"
         />
         <CounterCard
-          Count={"67,000"}
-          Record={"Companies"}
-          BgColor={"bg-white"}
+          Count="67,000"
+          Record="Companies"
+          BgColor="bg-white"
+          BgLink="public\company.png"
+        />
+        <CounterCard
+          Count="55,000"
+          Record="Candidates"
+          BgColor="bg-white"
+          BgLink="public\candidates.png"
+        />
+        <CounterCard
+          Count="87,000"
+          Record="Jobs"
+          BgColor="bg-white"
+          BgLink="public\briefcase.png"
         />
       </div>
     </>
   );
 };
 
-const CounterCard = ({ Count, Record, BgColor }) => {
+const CounterCard = ({ Count, Record, BgColor, BgLink }) => {
   return (
     <>
       <div
-        className={`w-full sm:w-[290px] h-[100px] mb-10 shadow-sm hover:shadow-xl rounded-md ${BgColor} flex`}
+        className={`w-full sm:w-[290px] h-[100px] mb-10 shadow-sm hover:shadow-xl rounded-xl ${BgColor} flex`}
       >
-        <div className="flex justify-center items-center w-2/5 h-4/5 m-3 bg-[rgb(231,240,250)]">
-          Img
+        <div className="flex justify-center items-center w-2/5 h-4/5 m-3 rounded-xl bg-[rgb(231,240,250)]">
+          <img
+            src={BgLink}
+            className=" p-4 text-blue-600 mix-blend-darken"
+            alt=""
+          />
         </div>
         <div className="w-full">
           <div className="mx-3 mt-5 font-medium text-xl lg:text-2xl hover:text-[#0a65cc]">

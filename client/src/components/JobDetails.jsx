@@ -25,7 +25,7 @@ const JobDetails = () => {
       });
   }, []);
 
-  return (
+  return (<>
     <div className="max-w-7xl mx-auto p-4 mt-16">
       <header className="flex justify-between items-center border-b pb-6 mb-6">
         <div className="flex items-center">
@@ -34,7 +34,7 @@ const JobDetails = () => {
               src={jobDetail.logo}
               alt={jobDetail.companyName}
               className="h-full w-full object-contain"
-            />
+              />
           </div>
           <div>
             <h1 className="text-2xl font-bold">{jobDetail.jobTitle}</h1>
@@ -50,19 +50,17 @@ const JobDetails = () => {
           </div>
         </div>
         <button
-          onClick={onClick}
+          onClick={togglePopup}
           className="bg-blue-500 text-white py-2 px-4 rounded"
-        >
-
+          >
           Apply Now
         </button>
         <ApplyPopup
           show={showPopup}
           jobTitle={jobDetail.jobTitle}
           jobId={id}
-
-          onClick={onClick}
-        />
+          onClick={togglePopup}
+          />
       </header>
       <div className="lg:flex lg:space-x-8">
         <div className="lg:w-2/3">
@@ -85,8 +83,10 @@ const JobDetails = () => {
           <JobBenefits />
         </div>
       </div>
-      <FeaturedJob username="Related Jobs" />
     </div>
+      <FeaturedJob username="Related Jobs" />
+    </>
+
   );
 };
 
@@ -196,9 +196,9 @@ const JobOverview = (props) => {
     <div className="p-4 border rounded-lg shadow-md bg-white mb-6">
       <div className="flex justify-between items-center mb-6">
         <div>
-          <p className="text-gray-700">Salary (USD)</p>
+          <p className="text-gray-700">Salary (INR)</p>
           <p className="text-green-500 text-xl font-bold">
-            ${salaryFrom} - ${salaryTo}
+          ₹{salaryFrom} - ₹{salaryTo}
           </p>
           <p className="text-gray-500">Monthly salary</p>
         </div>

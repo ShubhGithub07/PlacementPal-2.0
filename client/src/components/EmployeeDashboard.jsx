@@ -1,58 +1,60 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useCallback } from "react";
 import ApplicantPopup from "./ApplicantsPopup";
 import { jwtDecode } from "jwt-decode";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 
 const EmployeeDashboard = () => {
-  const [jobId, setJobId] = useState([]);
-  const [jobDetail, setJobDetail] = useState([]);
-  const [compDetail, setCompDetail] = useState({});
+  const [jobDetail, setJobDetails] = useState([]);
+  const [compDetail, setCompDetails] = useState({});
+  const [compId, setCompId] = useState("");
 
-  const fetchData = async (userId) => {
+  const fetchDetails = useCallback(async (userId) => {
     await axios
       .post("http://localhost:7000/api/v1/companyprofile/getMyCompanyProfile", {
         userId,
       })
       .then((res) => {
-        setCompDetail(res.data.data);
-        const allJobs = res.data.data.openJobs;
-        setJobId((prev) => [...prev, ...allJobs.map((job) => job.jobId)]);
+        setCompDetails(res.data.data);
+        setCompId(res.data.data._id);
+        fetchJobs();
       })
       .catch((error) => {
-        console.error("There was an error fetching the user profile!", error);
+        console.error("There was an error fetching the company details", error);
       });
-  };
+  }, []);
 
-  const fetchJobDetails = async (jobIds) => {
+  const fetchJobs = useCallback(async () => {
+    if (!compId) return;
+
     await axios
       .post("http://localhost:7000/api/v1/job/getmyjobs", {
-        jobIds,
+        compId,
       })
       .then((res) => {
-        setJobDetail(res.data.data);
+        setJobDetails(res.data.data);
       })
       .catch((error) => {
-        console.error("There was an error fetching the job details!", error);
+        console.error("There was an error fetching the job IDs!", error);
       });
-  };
+  }, [compId]);
+
+  useEffect(() => {
+    fetchJobs();
+  }, [compId, fetchJobs]);
 
   useEffect(() => {
     const accessToken = localStorage.getItem("token");
+    if (!accessToken) return;
+
     const decodedToken = jwtDecode(accessToken);
     const userId = decodedToken.userId;
-    fetchData(userId);
-  }, []);
 
-  useEffect(() => {
-    if (jobId.length > 0) {
-      fetchJobDetails(jobId);
+    if (userId) {
+      fetchDetails(userId);
     }
-  }, [jobId]);
+  }, [fetchDetails]);
 
-  console.log(compDetail);
-  console.log(jobId);
-  console.log(jobDetail);
   const navigate = useNavigate();
 
   return (
@@ -67,7 +69,7 @@ const EmployeeDashboard = () => {
 
         <div className=" h-1/5 mt-10 justify-between mx-8 lg:mx-10 items-start grid grid-cols-3">
           <DashboardSummaryCard
-            value={jobId.length}
+            value={jobDetail.length}
             title="Open jobs"
             url="img"
             color="bg-[#e7f0fa]"
@@ -163,7 +165,7 @@ const ApplicantJobCard = ({ jobTitle, jobType, daysRemaining, cardId }) => {
         <div className=" w-1/6 flex justify-start items-center">
           <button
             onClick={() => {
-              navigate(`/applicationcard/${cardId}`);
+              navigate(`/job/applicants/${cardId}`);
             }}
             className=" bg-[#f1f2f4] hover:bg-[#0a65cc] text-[#0a65cc] hover:text-[#f1f2f4] font-semibold px-6 py-3 rounded-lg"
           >

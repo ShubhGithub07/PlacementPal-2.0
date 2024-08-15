@@ -31,7 +31,7 @@ const NavArea = () => {
 
   return (
     <>
-      <div className="w-full fixed top-0 left-0 h-[65px] backdrop-blur-3xl bg-white/30 border-b-2 flex flex-row justify-between items-center z-10">
+      <div className="w-full fixed top-0 left-0 h-[65px] backdrop-blur-3xl bg-white/60 border-b-2 flex flex-row justify-between items-center z-10">
         <LogoArea />
         <MenuIcon toggleMenu={toggleMenu} />
         <NavMenus isOpen={isOpen} user={logUser} />
@@ -41,7 +41,7 @@ const NavArea = () => {
 };
 
 const LogoArea = () => {
-  return <div className="ml-4 sm:ml-8 md:ml-12 lg:ml-36">IamLogo</div>;
+  return <div className="ml-4 sm:ml-8 md:ml-12 lg:ml-36 text-2xl font-semibold">Job<span className=" font-extrabold">Hub</span></div>;
 };
 
 const MenuIcon = ({ toggleMenu }) => {

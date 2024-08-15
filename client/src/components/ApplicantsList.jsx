@@ -1,5 +1,8 @@
+import { useParams } from "react-router-dom";
+import axios from "axios";
 import ApplicantPopup from "./ApplicantsPopup";
-import { useState } from "react";
+import { useEffect, useMemo, useState } from "react";
+import { jobDescAtom } from "../store/atoms/JobDetail";
 
 const applications = [
   {
@@ -48,20 +51,38 @@ const applications = [
 ];
 
 const ApplicantsList = () => {
+  const [jobDetail, setJobDetail] = useState({});
+  const { id } = useParams();
+
+  useEffect(() => {
+    const fetchJobDetail = async () => {
+      try {
+        const response = await axios.get(
+          `http://localhost:7000/api/v1/job/${id}`
+        );
+        setJobDetail(response.data.data.job);
+      } catch (error) {
+        console.error("There was an error fetching the job details!", error);
+      }
+    };
+
+    fetchJobDetail();
+  }, [id]);
+
   return (
     <>
       <header className="flex border-b-2 mx-16 mt-20 justify-between items-center pb-4 mb-6">
         <div className="flex items-center">
           <div className="h-28 w-28 m-4 rounded-lg flex justify-center items-center bg-[#e7f0fa]">
             <img
-              src="logo-url"
+              src={jobDetail.logo}
               alt="Company Logo"
-              className="h-full w-full object-contain"
+              className="h-full w-full rounded-xl"
             />
           </div>
           <div>
-            <h1 className="text-2xl font-bold">Senior UX Designer</h1>
-            <span className="text-gray-500">at Facebook</span>
+            <h1 className="text-2xl font-bold">{jobDetail.jobTitle}</h1>
+            <span className="text-gray-500">at {jobDetail.companyName}</span>
             <div className="mt-2">
               <span className="text-green-500 border border-green-500 rounded px-2 py-1 text-xs mr-2">
                 Full-Time
@@ -72,17 +93,18 @@ const ApplicantsList = () => {
             </div>
           </div>
         </div>
-        <button className="bg-blue-500 text-white py-2 px-4 rounded">
-          Apply Now
+        <button className="bg-red-500 hover:bg-red-400 text-white py-2 px-4 rounded">
+          Delete
         </button>
       </header>
-      <ApplicantsSection />
+      <ApplicantsSection jobDetail={jobDetail} />
     </>
   );
 };
 
-const ApplicantsSection = () => {
+const ApplicantsSection = ({ jobDetail }) => {
   const [selectedApplicant, setSelectedApplicant] = useState(null);
+  console.log(jobDetail.appliedUsers);
 
   const togglePopup = (applicant) => {
     setSelectedApplicant(applicant);

@@ -66,7 +66,7 @@ const LoginButton = ({ value, Linkto }) => {
   const password = useRecoilValue(passwordAtom);
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState(null);
-  const navigate = useNavigate(); // Use navigate for navigation
+  const navigate = useNavigate();
   const setLoggedInUser = useSetRecoilState(loggedInUserAtom);
   const LoggedInUser = useRecoilValue(loggedInUserAtom);
   const setLoggedInUserId = useSetRecoilState(loggedInUserIdAtom);
@@ -94,7 +94,7 @@ const LoginButton = ({ value, Linkto }) => {
         setLoggedInUserId(decodedToken.userId);
         navigate(Linkto);
       } else {
-        setError("Login failed. Please try again.");
+        setError("Please provide correct credentials.");
         console.log("else", res.data.token);
       }
     } catch (err) {
@@ -106,15 +106,17 @@ const LoginButton = ({ value, Linkto }) => {
   };
 
   return (
-    <div className="h-12 mt-5 flex justify-center items-center">
-      <button
-        onClick={handleRegister}
-        className="w-3/5 md:w-2/5 bg-blue-500 h-full flex justify-center items-center text-white font-semibold text-xl rounded-xl shadow hover:shadow-xl"
-        disabled={isLoading}
-      >
-        {isLoading ? "Loading..." : value}
-      </button>
-      {error && <p className="text-red-500 mt-2">{error}</p>}
-    </div>
+    <>
+      <div className="h-12 mt-5 flex justify-center items-center">
+        <button
+          onClick={handleRegister}
+          className="w-3/5 md:w-2/5 bg-blue-500 h-full flex justify-center items-center text-white font-semibold text-xl rounded-xl shadow hover:shadow-xl"
+          disabled={isLoading}
+        >
+          {isLoading ? "Loading..." : value}
+        </button>
+      </div>
+      {error && <p className="text-red-500 text-center mt-2">{error}</p>}
+    </>
   );
 };
