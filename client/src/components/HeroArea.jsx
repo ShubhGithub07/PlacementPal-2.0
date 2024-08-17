@@ -37,25 +37,25 @@ const HeroText = () => {
           Count="30,000"
           Record="New Jobs"
           BgColor="bg-white"
-          BgLink="public\briefcase.png"
+          BgLink="/briefcase.png"
         />
         <CounterCard
           Count="67,000"
           Record="Companies"
           BgColor="bg-white"
-          BgLink="public\company.png"
+          BgLink="/company.png"
         />
         <CounterCard
           Count="55,000"
           Record="Candidates"
           BgColor="bg-white"
-          BgLink="public\candidates.png"
+          BgLink="/candidates.png"
         />
         <CounterCard
           Count="87,000"
           Record="Jobs"
           BgColor="bg-white"
-          BgLink="public\briefcase.png"
+          BgLink="/briefcase.png"
         />
       </div>
     </>

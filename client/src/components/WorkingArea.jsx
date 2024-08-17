@@ -7,7 +7,7 @@ const WorkingArea = () => {
         </div>
         <img
           className=" h-auto mt-5 rounded-xl w-11/12 sm:w-5/6 max-h-[300px] object-cover"
-          src="public\working.png"
+          src="working.png"
           alt="Working Image"
         />
       </div>
