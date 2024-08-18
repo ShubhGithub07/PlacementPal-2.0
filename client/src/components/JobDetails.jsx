@@ -26,67 +26,67 @@ const JobDetails = () => {
   }, []);
 
   return (
-    <div className="max-w-7xl mx-auto p-4 mt-16">
-      <header className="flex justify-between items-center border-b pb-6 mb-6">
-        <div className="flex items-center">
-          <div className="h-28 w-28 m-4 rounded-lg flex justify-center items-center">
-            <img
-              src={jobDetail.logo}
-              alt={jobDetail.companyName}
-              className="h-full w-full object-contain"
-            />
-          </div>
-          <div>
-            <h1 className="text-2xl font-bold">{jobDetail.jobTitle}</h1>
-            <span className="text-gray-500">at {jobDetail.companyName}</span>
-            <div className="mt-2">
-              <span className="text-green-500 border border-green-500 rounded px-2 py-1 text-xs mr-2">
-                {jobDetail.jobType}
-              </span>
-              <span className="text-red-500 border border-red-500 rounded px-2 py-1 text-xs">
-                Featured
-              </span>
+    <>
+      <div className="max-w-7xl mx-auto p-4 mt-16">
+        <header className="flex justify-between items-center border-b pb-6 mb-6">
+          <div className="flex items-center">
+            <div className="h-28 w-28 m-4 rounded-lg flex justify-center items-center">
+              <img
+                src={jobDetail.logo}
+                alt={jobDetail.companyName}
+                className="h-full w-full object-contain"
+              />
+            </div>
+            <div>
+              <h1 className="text-2xl font-bold">{jobDetail.jobTitle}</h1>
+              <span className="text-gray-500">at {jobDetail.companyName}</span>
+              <div className="mt-2">
+                <span className="text-green-500 border border-green-500 rounded px-2 py-1 text-xs mr-2">
+                  {jobDetail.jobType}
+                </span>
+                <span className="text-red-500 border border-red-500 rounded px-2 py-1 text-xs">
+                  Featured
+                </span>
+              </div>
             </div>
           </div>
-        </div>
-        <button
-          onClick={onClick}
-          className="bg-blue-500 text-white py-2 px-4 rounded"
-        >
-
-          Apply Now
-        </button>
-        <ApplyPopup
-          show={showPopup}
-          jobTitle={jobDetail.jobTitle}
-          jobId={id}
-
-          onClick={onClick}
-        />
-      </header>
-      <div className="lg:flex lg:space-x-8">
-        <div className="lg:w-2/3">
-          <JobDescription description={jobDetail.jobDescription} />
-        </div>
-        <div className="lg:w-1/3">
-          <JobOverview
-            props={{
-              salaryFrom: jobDetail.salaryFrom,
-              salaryTo: jobDetail.salaryTo,
-              address: jobDetail.address,
-              jobPosted: jobDetail.jobPostedOn,
-              vacancy: jobDetail.vacancy,
-              jobType: jobDetail.jobType,
-              experience: jobDetail.experience,
-              gender: jobDetail.gender,
-              jobLevel: jobDetail.jobLevel,
-            }}
+          <button
+            onClick={togglePopup}
+            className="bg-blue-500 text-white py-2 px-4 rounded"
+          >
+            Apply Now
+          </button>
+          <ApplyPopup
+            show={showPopup}
+            jobTitle={jobDetail.jobTitle}
+            jobId={id}
+            onClick={togglePopup}
           />
-          <JobBenefits />
+        </header>
+        <div className="lg:flex lg:space-x-8">
+          <div className="lg:w-2/3">
+            <JobDescription description={jobDetail.jobDescription} />
+          </div>
+          <div className="lg:w-1/3">
+            <JobOverview
+              props={{
+                salaryFrom: jobDetail.salaryFrom,
+                salaryTo: jobDetail.salaryTo,
+                address: jobDetail.address,
+                jobPosted: jobDetail.jobPostedOn,
+                vacancy: jobDetail.vacancy,
+                jobType: jobDetail.jobType,
+                experience: jobDetail.experience,
+                gender: jobDetail.gender,
+                jobLevel: jobDetail.jobLevel,
+              }}
+            />
+            <JobBenefits />
+          </div>
         </div>
       </div>
       <FeaturedJob username="Related Jobs" />
-    </div>
+    </>
   );
 };
 
@@ -196,9 +196,9 @@ const JobOverview = (props) => {
     <div className="p-4 border rounded-lg shadow-md bg-white mb-6">
       <div className="flex justify-between items-center mb-6">
         <div>
-          <p className="text-gray-700">Salary (USD)</p>
+          <p className="text-gray-700">Salary (INR)</p>
           <p className="text-green-500 text-xl font-bold">
-            ${salaryFrom} - ${salaryTo}
+            ₹{salaryFrom} - ₹{salaryTo}
           </p>
           <p className="text-gray-500">Monthly salary</p>
         </div>

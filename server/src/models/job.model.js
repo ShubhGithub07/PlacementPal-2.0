@@ -5,6 +5,14 @@ const appliedUsersSchema = new mongoose.Schema({
     type: String,
     required: true,
   },
+  isShortlisted: {
+    type: Boolean,
+    default: false,
+  },
+  appliedOn: {
+    type: Date,
+    default: new Date(),
+  },
 });
 
 const jobSchema = new Schema(

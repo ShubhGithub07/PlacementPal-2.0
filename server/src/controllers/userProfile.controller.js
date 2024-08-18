@@ -34,8 +34,6 @@ const createUserProfile = asyncHandler(async (req, res, next) => {
     postedBy,
   } = req.body;
 
-  console.log(req.body);
-
   if (
     !fullName ||
     !headline ||
@@ -96,12 +94,18 @@ const createUserProfile = asyncHandler(async (req, res, next) => {
   );
 });
 
+// -----------------------------------------------------------------------------------------
+
 const getMyUserProfile = asyncHandler(async (req, res) => {
+  const body = req.body;
+  const myUserProfile = await UserProfile.findOne({
+    postedBy: req.body.userId,
+  });
 
-  const myUserProfile = await UserProfile.findOne({ postedBy: req.body.userId });
-
-  return res.status(200).json(new ApiResponse(200,  myUserProfile ));
+  return res.status(200).json(new ApiResponse(200, myUserProfile));
 });
+
+// --------------------------------------------------------------------------------------------
 
 const updateUserProfile = asyncHandler(async (req, res, next) => {
   const { role } = req.user;

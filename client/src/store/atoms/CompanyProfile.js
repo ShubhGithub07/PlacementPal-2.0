@@ -1,10 +1,6 @@
 import { atom } from "recoil";
 import axios from "axios";
 
-// axios.get("API_URL").then((res) => {
-
-//  })
-
 export const logoUrlAtom = atom({
   key: "logoUrlAtom",
   default: "https://via.placeholder.com/150?text=No+Logo",

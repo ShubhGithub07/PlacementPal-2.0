@@ -405,7 +405,6 @@ const FinalButton = () => {
       postedBy: LoggedInUserId,
     };
 
-    console.log("user ID from the Atom : ", LoggedInUserId);
 
     try {
       const response = await axios.post(

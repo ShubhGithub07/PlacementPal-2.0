@@ -9,7 +9,6 @@ import { UserProfile } from "../models/userProfile.model.js";
 const postApplication = asyncHandler(async (req, res, next) => {
   const { coverLetter, userId, jobId } = req.body;
 
-  console.log(req.body);
   if (!jobId) {
     return next(new ApiError("Job not found!", 404));
   }
@@ -36,7 +35,6 @@ const postApplication = asyncHandler(async (req, res, next) => {
 
 
   const applicantId = application._id;
-  // console.log(applicantId);
 
   return res.status(200).json(
     new ApiResponse(

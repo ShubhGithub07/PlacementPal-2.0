@@ -6,7 +6,6 @@ const ApplyPopup = ({ show, jobTitle, jobId, onClick }) => {
   if (!show) return null;
 
   const [coverLetter, setCoverLetter] = useState("");
-
   const handleSubmit = async () => {
     onClick();
     const accessToken = localStorage.getItem("token");
@@ -20,7 +19,7 @@ const ApplyPopup = ({ show, jobTitle, jobId, onClick }) => {
     };
 
     try {
-      const response = await axios.post(
+      await axios.post(
         "http://localhost:7000/api/v1/application/post",
         postData
       );

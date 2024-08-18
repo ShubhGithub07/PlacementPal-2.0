@@ -92,7 +92,6 @@ const PersonalInformation = () => {
   const [userGender, setUserGender] = useRecoilState(genderAtom);
   const [userMStatus, setUserMStatus] = useRecoilState(martialStatusAtom);
   const [userBio, setUserBio] = useRecoilState(biographyAtom);
-  console.log(userDOB);
 
   return (
     <>

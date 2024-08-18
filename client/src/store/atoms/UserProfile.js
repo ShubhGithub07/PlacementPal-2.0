@@ -1,4 +1,4 @@
-import { atom } from "recoil";
+import { atom, selector } from "recoil";
 import axios from "axios";
 
 
@@ -6,6 +6,19 @@ export const fullNameAtom = atom({
     key: "fullNameAtom",
     default: "",
 })
+
+export const fullNameSelector = selector({
+    key: 'fullNameSelector',
+    get: async () => {
+      try {
+        const response = await axios.get('http://localhost:7000/api/v1/user/fullName');
+        return response.data.fullName;
+      } catch (error) {
+        console.error('Error fetching full name:', error);
+        throw error;
+      }
+    },
+  });
 
 export const headlineAtom = atom({
     key: "headlineAtom",

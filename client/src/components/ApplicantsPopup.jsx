@@ -1,9 +1,49 @@
 import React from "react";
-import { useNavigate } from "react-router-dom";
+import { format, parseISO } from "date-fns";
+import axios from "axios";
+import { useNavigate, useParams } from "react-router-dom";
 
 const ApplicantPopup = ({ show, onClose, applicant }) => {
-  if (!show || !applicant) return null;
+  const { id } = useParams();
   const navigate = useNavigate();
+
+  if (!show || !applicant) return null;
+
+  const handleShortlist = async () => {
+    try {
+      const response = await axios.post(
+        "http://localhost:7000/api/v1/job/shortlist",
+        {
+          userId: applicant.postedBy,
+          cardId: id,
+        }
+      );
+      console.log("Shortlist response:", response);
+      if (response.status === 200) {
+        navigate("/edashboard");
+      }
+    } catch (error) {
+      console.error("Error shortlisting the applicant:", error);
+    }
+  };
+
+  const handleReject = async () => {
+    try {
+      const response = await axios.post(
+        "http://localhost:7000/api/v1/job/reject",
+        {
+          userId: applicant.postedBy,
+          cardId: id,
+        }
+      );
+      console.log("Shortlist response:", response);
+      if (response.status === 200) {
+        navigate("/edashboard");
+      }
+    } catch (error) {
+      console.error("Error shortlisting the applicant:", error);
+    }
+  };
 
   return (
     <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
@@ -21,51 +61,52 @@ const ApplicantPopup = ({ show, onClose, applicant }) => {
           <div>
             <div className="text-sm mb-4">
               <div className="font-semibold">Biography</div>
-              <p>{applicant.details.bio}</p>
+              <p>{applicant.biography}</p>
             </div>
             <div className="text-sm mb-4">
               <div className="font-semibold">Cover Letter</div>
-              <p>{applicant.details.coverLetter}</p>
+              <p>{applicant.postedBy}</p>
             </div>
             <div className="text-sm mb-4">
               <div className="font-semibold">Date of Birth</div>
-              <p>{applicant.details.dob}</p>
+              <p>{format(parseISO(applicant.DOB), "dd MMM, yyyy")}</p>
             </div>
             <div className="text-sm mb-4">
               <div className="font-semibold">Nationality</div>
-              <p>{applicant.details.nationality}</p>
+              <p>{applicant.nationality}</p>
             </div>
             <div className="text-sm mb-4">
               <div className="font-semibold">Gender</div>
-              <p>{applicant.details.gender}</p>
+              <p>{applicant.gender}</p>
             </div>
             <div className="text-sm mb-4">
               <div className="font-semibold">Marital Status</div>
-              <p>{applicant.details.maritalStatus}</p>
+              <p>{applicant.martialStatus}</p>
             </div>
           </div>
           <div>
             <div className="text-sm mb-4">
               <div className="font-semibold">Location</div>
-              <p>{applicant.details.location}</p>
+              <p>{applicant.location}</p>
+              <p>{id}</p>
             </div>
             <div className="text-sm mb-4">
               <div className="font-semibold">Phone</div>
-              <p>{applicant.details.phone}</p>
+              <p>{applicant.phone}</p>
             </div>
             <div className="text-sm mb-4">
               <div className="font-semibold">Email</div>
-              <p>{applicant.details.email}</p>
+              <p>{applicant.email}</p>
             </div>
             <div className="text-sm mb-4">
               <div className="font-semibold">Website</div>
               <a
-                href={`http://${applicant.details.website}`}
+                href={`http://${applicant.personalWebsite}`}
                 className="text-blue-600"
                 target="_blank"
                 rel="noopener noreferrer"
               >
-                {applicant.details.website}
+                {applicant.personalWebsite}
               </a>
             </div>
             <div className="text-sm mb-4">
@@ -75,17 +116,13 @@ const ApplicantPopup = ({ show, onClose, applicant }) => {
             </div>
             <div className="flex justify-end mt-6">
               <button
-                onClick={() => {
-                  navigate("/edashboard");
-                }}
+                onClick={handleShortlist}
                 className="bg-green-500 text-white px-4 py-2 rounded-md mr-2"
               >
                 Hire
               </button>
               <button
-                onClick={() => {
-                  navigate("/edashboard");
-                }}
+                onClick={handleReject}
                 className="bg-red-500 text-white px-4 py-2 rounded-md"
               >
                 Reject

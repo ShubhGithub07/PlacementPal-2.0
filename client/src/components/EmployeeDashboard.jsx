@@ -1,58 +1,61 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useCallback } from "react";
 import ApplicantPopup from "./ApplicantsPopup";
 import { jwtDecode } from "jwt-decode";
 import axios from "axios";
+import { BsBriefcase, BsBookmark } from "react-icons/bs";
 import { useNavigate } from "react-router-dom";
 
 const EmployeeDashboard = () => {
-  const [jobId, setJobId] = useState([]);
-  const [jobDetail, setJobDetail] = useState([]);
-  const [compDetail, setCompDetail] = useState({});
+  const [jobDetail, setJobDetails] = useState([]);
+  const [compDetail, setCompDetails] = useState({});
+  const [compId, setCompId] = useState("");
 
-  const fetchData = async (userId) => {
+  const fetchDetails = useCallback(async (userId) => {
     await axios
       .post("http://localhost:7000/api/v1/companyprofile/getMyCompanyProfile", {
         userId,
       })
       .then((res) => {
-        setCompDetail(res.data.data);
-        const allJobs = res.data.data.openJobs;
-        setJobId((prev) => [...prev, ...allJobs.map((job) => job.jobId)]);
+        setCompDetails(res.data.data);
+        setCompId(res.data.data._id);
+        fetchJobs();
       })
       .catch((error) => {
-        console.error("There was an error fetching the user profile!", error);
+        console.error("There was an error fetching the company details", error);
       });
-  };
+  }, []);
 
-  const fetchJobDetails = async (jobIds) => {
+  const fetchJobs = useCallback(async () => {
+    if (!compId) return;
+
     await axios
       .post("http://localhost:7000/api/v1/job/getmyjobs", {
-        jobIds,
+        compId,
       })
       .then((res) => {
-        setJobDetail(res.data.data);
+        setJobDetails(res.data.data);
       })
       .catch((error) => {
-        console.error("There was an error fetching the job details!", error);
+        console.error("There was an error fetching the job IDs!", error);
       });
-  };
+  }, [compId]);
+
+  useEffect(() => {
+    fetchJobs();
+  }, [compId, fetchJobs]);
 
   useEffect(() => {
     const accessToken = localStorage.getItem("token");
+    if (!accessToken) return;
+
     const decodedToken = jwtDecode(accessToken);
     const userId = decodedToken.userId;
-    fetchData(userId);
-  }, []);
 
-  useEffect(() => {
-    if (jobId.length > 0) {
-      fetchJobDetails(jobId);
+    if (userId) {
+      fetchDetails(userId);
     }
-  }, [jobId]);
+  }, [fetchDetails]);
 
-  console.log(compDetail);
-  console.log(jobId);
-  console.log(jobDetail);
   const navigate = useNavigate();
 
   return (
@@ -67,15 +70,15 @@ const EmployeeDashboard = () => {
 
         <div className=" h-1/5 mt-10 justify-between mx-8 lg:mx-10 items-start grid grid-cols-3">
           <DashboardSummaryCard
-            value={jobId.length}
+            value={jobDetail.length}
             title="Open jobs"
-            url="img"
+            logo={<BsBriefcase className=" text-3xl" />}
             color="bg-[#e7f0fa]"
           />
           <DashboardSummaryCard
-            value="0"
+            value={Math.floor(Math.random() * 20)}
             title="Saved Candidates"
-            url="img"
+            logo={<BsBookmark className=" text-3xl" />}
             color="bg-[#fff6e6]"
           />
           <button
@@ -106,6 +109,7 @@ const EmployeeDashboard = () => {
               key={index}
               jobTitle={job.jobTitle}
               jobType={job.jobType}
+              appliedUsers={job.appliedUsers.length}
               daysRemaining={Math.floor(Math.random() * 20)}
               cardId={job.cardId}
             />
@@ -116,7 +120,7 @@ const EmployeeDashboard = () => {
   );
 };
 
-const DashboardSummaryCard = ({ value, title, url, color }) => {
+const DashboardSummaryCard = ({ value, title, logo, color }) => {
   return (
     <>
       <div
@@ -127,14 +131,14 @@ const DashboardSummaryCard = ({ value, title, url, color }) => {
           <div className=" text-lg text-gray-700 ">{title}</div>
         </div>
         <div className=" w-20 h-20 bg-white flex justify-center items-center rounded-lg">
-          {url}
+          {logo}
         </div>
       </div>
     </>
   );
 };
 
-const ApplicantJobCard = ({ jobTitle, jobType, daysRemaining, cardId }) => {
+const ApplicantJobCard = ({ jobTitle, jobType, daysRemaining, appliedUsers, cardId }) => {
   const navigate = useNavigate();
   const [showPopup, setShowPopup] = useState(false);
 
@@ -158,12 +162,12 @@ const ApplicantJobCard = ({ jobTitle, jobType, daysRemaining, cardId }) => {
           Active
         </div>
         <div className=" w-1/6 pl-7 flex justify-start items-center text-[#5e6670]">
-          675 Applications
+          {appliedUsers} Applications
         </div>
         <div className=" w-1/6 flex justify-start items-center">
           <button
             onClick={() => {
-              navigate(`/applicationcard/${cardId}`);
+              navigate(`/job/applicants/${cardId}`);
             }}
             className=" bg-[#f1f2f4] hover:bg-[#0a65cc] text-[#0a65cc] hover:text-[#f1f2f4] font-semibold px-6 py-3 rounded-lg"
           >

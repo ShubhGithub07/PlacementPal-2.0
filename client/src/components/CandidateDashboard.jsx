@@ -1,72 +1,49 @@
 import axios from "axios";
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useMemo, useState } from "react";
 import { jwtDecode } from "jwt-decode";
 import { format, parseISO } from "date-fns";
+import { BsBriefcase, BsBookmark, BsAlarm } from "react-icons/bs";
 import { useNavigate } from "react-router-dom";
 
 const CandidateDashboard = () => {
-  const [jobId, setJobId] = useState([]);
-  const [jobDetail, setJobDetail] = useState([]);
+  const [jobDetail, setJobDetails] = useState([]);
   const [userDetail, setUserDetail] = useState({});
 
-  const fetchData = async (userId) => {
+  const fetchDetails = useCallback(async (userId) => {
     await axios
-      .post("http://localhost:7000/api/v1/companyprofile/getMyCompanyProfile", {
+      .post("http://localhost:7000/api/v1/userprofile/getmyUserProfile", {
         userId,
       })
       .then((res) => {
         setUserDetail(res.data.data);
-        const allJobs = res.data.data.openJobs;
-        setUserDetail((prev) => [...prev, ...allJobs.map((job) => job.jobId)]);
       })
       .catch((error) => {
         console.error("There was an error fetching the user profile!", error);
       });
-  };
 
-  const fetchJobId = async (userId) => {
     await axios
-      .post("http://localhost:7000/api/v1/application/get", {
+      .post("http://localhost:7000/api/v1/job/getall", {
         userId,
       })
       .then((res) => {
-        const allJobs = res.data.data;
-        setJobId((prevJobId) => [
-          ...prevJobId,
-          ...allJobs.map((job) => job.jobId),
-        ]);
+        setJobDetails(res.data);
       })
       .catch((error) => {
         console.error("There was an error fetching the job IDs!", error);
       });
-  };
-
-  const fetchJobDetails = async (jobIds) => {
-    await axios
-      .post("http://localhost:7000/api/v1/job/getmyjobs", {
-        jobIds,
-      })
-      .then((res) => {
-        setJobDetail(res.data.data);
-      })
-      .catch((error) => {
-        console.error("There was an error fetching the job details!", error);
-      });
-  };
-
-  useEffect(() => {
-    const accessToken = localStorage.getItem("token");
-    const decodedToken = jwtDecode(accessToken);
-    const userId = decodedToken.userId;
-    fetchData(userId);
-    fetchJobId(userId);
   }, []);
 
   useEffect(() => {
-    if (jobId.length > 0) {
-      fetchJobDetails(jobId);
+    const accessToken = localStorage.getItem("token");
+    if (!accessToken) return;
+
+    const decodedToken = jwtDecode(accessToken);
+    const userId = decodedToken.userId;
+
+    if (userId) {
+      fetchDetails(userId);
     }
-  }, [jobId]);
+  }, [fetchDetails]);
 
   return (
     <>
@@ -82,19 +59,19 @@ const CandidateDashboard = () => {
           <DashboardSummaryCard
             value={userDetail.jobApplied}
             title="Applied jobs"
-            url="img"
+            icon={<BsBriefcase className=" text-3xl" />}
             color="bg-[#e7f0fa]"
           />
           <DashboardSummaryCard
             value="0"
             title="Favorite jobs"
-            url="img"
+            icon={<BsBookmark className=" text-3xl" />}
             color="bg-[#fff6e6]"
           />
           <DashboardSummaryCard
             value="0"
             title="Jobs alerts"
-            url="img"
+            icon={<BsAlarm className=" text-3xl" />}
             color="bg-[#e7f6ea]"
           />
         </div>
@@ -120,8 +97,7 @@ const CandidateDashboard = () => {
               jobLocation={job.address}
               minSalary={job.salaryFrom}
               maxSalary={job.salaryTo}
-              // postedOn={format(parseISO(job.jobPostedOn), 'dd MMM, yyyy')}
-              postedOn={job.jobPostedOn}
+              postedOn={format(parseISO(job.updatedAt), "dd MMM, yyyy")}
               cardId={job.cardId}
               key={index}
             />
@@ -132,7 +108,7 @@ const CandidateDashboard = () => {
   );
 };
 
-const DashboardSummaryCard = ({ value, title, url, color }) => {
+const DashboardSummaryCard = ({ value, title, icon, color }) => {
   return (
     <>
       <div
@@ -143,7 +119,7 @@ const DashboardSummaryCard = ({ value, title, url, color }) => {
           <div className=" text-lg text-gray-700 ">{title}</div>
         </div>
         <div className=" w-20 h-20 bg-white flex justify-center items-center rounded-lg">
-          {url}
+          {icon}
         </div>
       </div>
     </>
