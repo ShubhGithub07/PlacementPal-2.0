@@ -15,11 +15,15 @@ const HeroText = () => {
     <>
       <div className="h-auto flex flex-col lg:flex-row">
         <div className="h-full flex flex-col justify-center items-center w-full lg:w-1/2 p-4">
-          <div className="text-4xl lg:text-5xl w-5/6 font-medium m-4 lg:m-10 text-center lg:text-left">
+          <div className="text-4xl lg:text-5xl w-5/6 font-medium m-4 lg:m-10 text-center">
             Find a job that suits your interest & skills.
           </div>
-          <div className="w-5/6 pr-0 lg:pr-20 text-center lg:text-left">
-            Look through jobs in the field that interests you the most.
+          <div className="w-5/6 pr-0 text-center">
+            A job portal website is a platform that connects job seekers with
+            employers. It allows candidates to search for job openings, upload
+            resumes, and apply for positions directly. On the other hand,
+            employers can post job listings, search through candidate profiles,
+            and manage applications.
           </div>
           <Link
             className="m-10 lg:m-20 h-12 lg:h-16 w-3/5 lg:w-2/5 rounded-md flex justify-center items-center bg-[#0a65cc] font-semibold text-lg lg:text-xl text-white cursor-pointer shadow hover:shadow-xl"
@@ -68,7 +72,7 @@ const CounterCard = ({ Count, Record, BgColor, BgLink }) => {
       <div
         className={`w-full sm:w-[300px] h-[100px] mb-10 shadow-sm hover:shadow-xl rounded-xl ${BgColor} flex`}
       >
-        <div className="flex justify-center items-center w-2/5 h-4/5 m-3 rounded-xl hover:bg-blue-400 bg-[rgb(231,240,250)]">
+        <div className="flex justify-center items-center w-2/5 h-4/5 m-3 rounded-xl hover:bg-blue-200 bg-[rgb(231,240,250)]">
           <img
             src={BgLink}
             className=" p-4 text-blue-600 hover:text-white mix-blend-darken"
@@ -76,10 +80,10 @@ const CounterCard = ({ Count, Record, BgColor, BgLink }) => {
           />
         </div>
         <div className="w-full">
-          <div className="mx-3 mt-5 font-medium text-xl lg:text-2xl hover:text-[#0a65cc]">
+          <div className="mx-3 mt-5 font-medium text-xl lg:text-2xl hover:text-[#4373ab] cursor-default">
             {Count}
           </div>
-          <div className="mx-3 mt-2 font-semibold hover:text-[#0a65cc]">
+          <div className="mx-3 mt-2 font-semibold hover:text-[#0a65cc] cursor-default">
             {Record}
           </div>
         </div>

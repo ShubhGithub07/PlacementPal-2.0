@@ -9,6 +9,7 @@ const EmployeeDashboard = () => {
   const [jobDetail, setJobDetails] = useState([]);
   const [compDetail, setCompDetails] = useState({});
   const [compId, setCompId] = useState("");
+  const [loading, setLoading] = useState(true);
 
   const fetchDetails = useCallback(async (userId) => {
     await axios
@@ -34,6 +35,7 @@ const EmployeeDashboard = () => {
       })
       .then((res) => {
         setJobDetails(res.data.data);
+        setLoading(false);
       })
       .catch((error) => {
         console.error("There was an error fetching the job IDs!", error);
@@ -60,62 +62,85 @@ const EmployeeDashboard = () => {
 
   return (
     <>
-      <div className="h-auto bg-[#f7f7f8] py-14">
-        <div className="h-1/5 flex flex-col justify-between mx-8 lg:mx-16 items-start">
-          <div className="mt-10 mb-3 font-semibold text-4xl text-center lg:text-left">
-            Hello, {compDetail.name}
+      {loading ? (
+        <>
+          <div className=" flex justify-center items-center h-screen text-xl font-semibold">
+            Loading...
           </div>
-          <p>Here is your daily activities and job alerts</p>
-        </div>
+        </>
+      ) : (
+        <>
+          {!compDetail ? (
+            <div className=" text-2xl flex flex-col gap-4 justify-center items-center h-screen">
+              <div className=" text-4xl font-semibold">Hello sir,</div>
+              Seems like you have not created personal and company profile
+              <button
+                onClick={() => navigate("/userprofile")}
+                className=" px-4 py-1 text-lg bg-[#0a65cc] text-white font-semibold rounded-md shadow hover:shadow-xl ml-2"
+              >
+                Create Profile
+              </button>
+            </div>
+          ) : (
+            <div className="h-auto bg-[#f7f7f8] py-14">
+              <div className="h-1/5 flex flex-col justify-between mx-8 lg:mx-16 items-start">
+                <div className="mt-10 mb-3 font-semibold text-4xl text-center lg:text-left">
+                  Hello, {compDetail.name}
+                </div>
+                <p>Here is your daily activities and job alerts</p>
+              </div>
 
-        <div className=" h-1/5 mt-10 justify-between mx-8 lg:mx-10 items-start grid grid-cols-3">
-          <DashboardSummaryCard
-            value={jobDetail.length}
-            title="Open jobs"
-            logo={<BsBriefcase className=" text-3xl" />}
-            color="bg-[#e7f0fa]"
-          />
-          <DashboardSummaryCard
-            value={Math.floor(Math.random() * 20)}
-            title="Saved Candidates"
-            logo={<BsBookmark className=" text-3xl" />}
-            color="bg-[#fff6e6]"
-          />
-          <button
-            onClick={() => {
-              navigate("/jobposting");
-            }}
-            className=" h-28 bg-green-200 px-10 py-4 mx-5 flex justify-center items-center rounded-lg shadow-lg hover:shadow-xl text-2xl font-semibold"
-          >
-            Add jobs
-          </button>
-        </div>
+              <div className=" h-1/5 mt-10 justify-between mx-8 lg:mx-10 items-start grid grid-cols-3">
+                <DashboardSummaryCard
+                  value={jobDetail.length}
+                  title="Open jobs"
+                  logo={<BsBriefcase className=" text-3xl" />}
+                  color="bg-[#e7f0fa]"
+                />
+                <DashboardSummaryCard
+                  value={Math.floor(Math.random() * 20)}
+                  title="Saved Candidates"
+                  logo={<BsBookmark className=" text-3xl" />}
+                  color="bg-[#fff6e6]"
+                />
+                <button
+                  onClick={() => {
+                    navigate("/jobposting");
+                  }}
+                  className=" h-28 bg-green-200 px-10 py-4 mx-5 flex justify-center items-center rounded-lg shadow-lg hover:shadow-xl text-2xl font-semibold"
+                >
+                  Add jobs
+                </button>
+              </div>
 
-        <div className="h-1/5 mt-5 flex flex-col justify-between mx-8 lg:mx-16 items-start">
-          <div className=" mt-10  mb-5 font-semibold text-2xl text-center lg:text-left">
-            Recently Posted Jobs
-          </div>
-        </div>
+              <div className="h-1/5 mt-5 flex flex-col justify-between mx-8 lg:mx-16 items-start">
+                <div className=" mt-10  mb-5 font-semibold text-2xl text-center lg:text-left">
+                  Recently Posted Jobs
+                </div>
+              </div>
 
-        <div className=" mx-16 h-12 rounded-lg bg-[#d7d7d7] flex items-center">
-          <div className=" w-3/6 pl-7">Job</div>
-          <div className=" w-1/6 pl-7">Status</div>
-          <div className=" w-1/6 pl-7">Action</div>
-          <div className=" w-1/6 pl-7">Applications</div>
-        </div>
-        <div className=" mx-16">
-          {jobDetail.map((job, index) => (
-            <ApplicantJobCard
-              key={index}
-              jobTitle={job.jobTitle}
-              jobType={job.jobType}
-              appliedUsers={job.appliedUsers.length}
-              daysRemaining={Math.floor(Math.random() * 20)}
-              cardId={job.cardId}
-            />
-          ))}
-        </div>
-      </div>
+              <div className=" mx-16 h-12 rounded-lg bg-[#d7d7d7] flex items-center">
+                <div className=" w-3/6 pl-7">Job</div>
+                <div className=" w-1/6 pl-7">Status</div>
+                <div className=" w-1/6 pl-7">Action</div>
+                <div className=" w-1/6 pl-7">Applications</div>
+              </div>
+              <div className=" mx-16">
+                {jobDetail.map((job, index) => (
+                  <ApplicantJobCard
+                    key={index}
+                    jobTitle={job.jobTitle}
+                    jobType={job.jobType}
+                    appliedUsers={job.appliedUsers.length}
+                    daysRemaining={Math.floor(Math.random() * 20)}
+                    cardId={job.cardId}
+                  />
+                ))}
+              </div>
+            </div>
+          )}
+        </>
+      )}
     </>
   );
 };
@@ -138,7 +163,13 @@ const DashboardSummaryCard = ({ value, title, logo, color }) => {
   );
 };
 
-const ApplicantJobCard = ({ jobTitle, jobType, daysRemaining, appliedUsers, cardId }) => {
+const ApplicantJobCard = ({
+  jobTitle,
+  jobType,
+  daysRemaining,
+  appliedUsers,
+  cardId,
+}) => {
   const navigate = useNavigate();
   const [showPopup, setShowPopup] = useState(false);
 

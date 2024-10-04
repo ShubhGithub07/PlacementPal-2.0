@@ -8,6 +8,7 @@ import { useNavigate } from "react-router-dom";
 const CandidateDashboard = () => {
   const [jobDetail, setJobDetails] = useState([]);
   const [userDetail, setUserDetail] = useState({});
+  const [loading, setLoading] = useState(true);
 
   const fetchDetails = useCallback(async (userId) => {
     await axios
@@ -27,6 +28,7 @@ const CandidateDashboard = () => {
       })
       .then((res) => {
         setJobDetails(res.data);
+        setLoading(false);
       })
       .catch((error) => {
         console.error("There was an error fetching the job IDs!", error);
@@ -44,66 +46,88 @@ const CandidateDashboard = () => {
       fetchDetails(userId);
     }
   }, [fetchDetails]);
+  const navigate = useNavigate();
 
   return (
     <>
-      <div className="h-auto bg-[#f7f7f8] py-14">
-        <div className="h-1/5 flex flex-col justify-between mx-8 lg:mx-16 items-start">
-          <div className="mt-10 mb-3 font-semibold text-4xl text-center lg:text-left">
-            Hey, {userDetail.fullName}
-          </div>
-          <p>Here is your daily activities and job alerts</p>
-        </div>
+      {loading ? (
+        <>
+          <div className=" flex justify-center items-center h-screen text-xl font-semibold">Loading...</div>
+        </>
+      ) : (
+        <>
+          {!userDetail ? (
+            <div className=" text-2xl flex flex-col gap-4 justify-center items-center h-screen">
+              <div className=" text-4xl font-semibold">Hey mate,</div>
+              Seems like you have not created your profile
+              <button
+                onClick={() => navigate("/userprofile")}
+                className=" px-4 py-1 text-lg bg-[#0a65cc] text-white font-semibold rounded-md shadow hover:shadow-xl ml-2"
+              >
+                Create Profile
+              </button>
+            </div>
+          ) : (
+            <div className="h-auto bg-[#f7f7f8] py-14">
+              <div className="h-1/5 flex flex-col justify-between mx-8 lg:mx-16 items-start">
+                <div className="mt-10 mb-3 font-semibold text-4xl text-center lg:text-left">
+                  Hey, {userDetail.fullName}
+                </div>
+                <p>Here is your daily activities and job alerts</p>
+              </div>
 
-        <div className=" h-1/5 mt-10 justify-between mx-8 lg:mx-10 items-start grid grid-cols-3">
-          <DashboardSummaryCard
-            value={userDetail.jobApplied}
-            title="Applied jobs"
-            icon={<BsBriefcase className=" text-3xl" />}
-            color="bg-[#e7f0fa]"
-          />
-          <DashboardSummaryCard
-            value="0"
-            title="Favorite jobs"
-            icon={<BsBookmark className=" text-3xl" />}
-            color="bg-[#fff6e6]"
-          />
-          <DashboardSummaryCard
-            value="0"
-            title="Jobs alerts"
-            icon={<BsAlarm className=" text-3xl" />}
-            color="bg-[#e7f6ea]"
-          />
-        </div>
+              <div className=" h-1/5 mt-10 justify-between mx-8 lg:mx-10 items-start grid grid-cols-3">
+                <DashboardSummaryCard
+                  value={userDetail.jobApplied}
+                  title="Applied jobs"
+                  icon={<BsBriefcase className=" text-3xl" />}
+                  color="bg-[#e7f0fa]"
+                />
+                <DashboardSummaryCard
+                  value="0"
+                  title="Favorite jobs"
+                  icon={<BsBookmark className=" text-3xl" />}
+                  color="bg-[#fff6e6]"
+                />
+                <DashboardSummaryCard
+                  value="0"
+                  title="Jobs alerts"
+                  icon={<BsAlarm className=" text-3xl" />}
+                  color="bg-[#e7f6ea]"
+                />
+              </div>
 
-        <div className="h-1/5 mt-5 flex flex-col justify-between mx-8 lg:mx-16 items-start">
-          <div className=" mt-10  mb-5 font-semibold text-2xl text-center lg:text-left">
-            Recently Applied
-          </div>
-        </div>
+              <div className="h-1/5 mt-5 flex flex-col justify-between mx-8 lg:mx-16 items-start">
+                <div className=" mt-10  mb-5 font-semibold text-2xl text-center lg:text-left">
+                  Recently Applied
+                </div>
+              </div>
 
-        <div className=" mx-16 h-12 rounded-lg bg-[#d7d7d7] flex items-center">
-          <div className=" w-3/6 pl-7">Job</div>
-          <div className=" w-1/6 pl-7">Date Applied</div>
-          <div className=" w-1/6 pl-7">Status</div>
-          <div className=" w-1/6 pl-7">Action</div>
-        </div>
-        <div className=" mx-16">
-          {jobDetail.map((job, index) => (
-            <AppliedJobCard
-              logo={job.logo}
-              jobTitle={job.jobTitle}
-              jobType={job.jobType}
-              jobLocation={job.address}
-              minSalary={job.salaryFrom}
-              maxSalary={job.salaryTo}
-              postedOn={format(parseISO(job.updatedAt), "dd MMM, yyyy")}
-              cardId={job.cardId}
-              key={index}
-            />
-          ))}
-        </div>
-      </div>
+              <div className=" mx-16 h-12 rounded-lg bg-[#d7d7d7] flex items-center">
+                <div className=" w-3/6 pl-7">Job</div>
+                <div className=" w-1/6 pl-7">Date Applied</div>
+                <div className=" w-1/6 pl-7">Status</div>
+                <div className=" w-1/6 pl-7">Action</div>
+              </div>
+              <div className=" mx-16">
+                {jobDetail.map((job, index) => (
+                  <AppliedJobCard
+                    logo={job.logo}
+                    jobTitle={job.jobTitle}
+                    jobType={job.jobType}
+                    jobLocation={job.address}
+                    minSalary={job.salaryFrom}
+                    maxSalary={job.salaryTo}
+                    postedOn={format(parseISO(job.updatedAt), "dd MMM, yyyy")}
+                    cardId={job.cardId}
+                    key={index}
+                  />
+                ))}
+              </div>
+            </div>
+          )}
+        </>
+      )}
     </>
   );
 };
@@ -161,7 +185,7 @@ const AppliedJobCard = ({
           {postedOn}
         </div>
         <div className=" w-1/6 pl-7 flex justify-start items-center text-green-400">
-          Status
+          Applied
         </div>
         <div className=" w-1/6 flex justify-start items-center">
           <button

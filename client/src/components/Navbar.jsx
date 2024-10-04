@@ -41,7 +41,11 @@ const NavArea = () => {
 };
 
 const LogoArea = () => {
-  return <div className="ml-4 sm:ml-8 md:ml-12 lg:ml-36 text-2xl font-semibold">Job<span className=" font-extrabold">Hub</span></div>;
+  return (
+    <div className="ml-4 sm:ml-8 md:ml-12 lg:ml-36 text-2xl font-semibold">
+      Job<span className=" font-extrabold">Hub</span>
+    </div>
+  );
 };
 
 const MenuIcon = ({ toggleMenu }) => {
@@ -66,6 +70,7 @@ const MenuIcon = ({ toggleMenu }) => {
 };
 
 const NavMenus = ({ isOpen, user }) => {
+  const currentPage = window.location.pathname;
 
   const guestLinks = [
     { path: "/", label: "Home" },
@@ -95,14 +100,20 @@ const NavMenus = ({ isOpen, user }) => {
 
   return (
     <ul
-      className={`flex-col sm:flex-row sm:flex sm:mr-8 md:mr-12 lg:mr-24 items-center ${
+      className={` flex-col sm:flex-row sm:flex sm:mr-8 md:mr-12 lg:mr-24 items-center ${
         isOpen ? "flex" : "hidden"
       }`}
     >
       {renderLinks.map((link, index) => (
         <li
           key={index}
-          className="hover:bg-[#e7f0fa] font-semibold px-2 h-8 rounded-md cursor-pointer flex justify-center items-center"
+          className={`  ${
+            currentPage === link.path ||
+            (currentPage == "/edashboard" && link.path == "/dashboard") ||
+            (currentPage == "/cdashboard" && link.path == "/dashboard")
+              ? " bg-blue-700 text-white"
+              : " cursor-pointer hover:bg-[#e7f0fa]"
+          } font-semibold px-2 h-8 rounded-md flex justify-center items-center transition-all `}
         >
           <Link to={link.path}>{link.label}</Link>
         </li>
