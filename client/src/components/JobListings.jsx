@@ -22,6 +22,7 @@ const JobListings = () => {
 const SearchArea = () => {
   const [jobs, setJobs] = useState([]);
   const [filter, setFilter] = useState("");
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     axios
@@ -30,6 +31,7 @@ const SearchArea = () => {
       )
       .then((response) => {
         setJobs(response.data.JobCards);
+        setLoading(false);
       })
       .catch((error) => {
         console.error("There was an error fetching the jobs!", error);
@@ -38,61 +40,69 @@ const SearchArea = () => {
 
   return (
     <>
-      <>
-        <div className="my-10">
-          <input
-            onChange={(e) => {
-              setFilter(e.target.value);
-            }}
-            type="text"
-            placeholder="Search"
-            className="mx-20 w-5/6 px-4 py-3 border border-slate-400 outline-none rounded-xl"
-          ></input>
-          <div className="mt-7 mx-20 flex flex-wrap gap-2">
-            <a
-              href="#"
-              className="bg-blue-200 hover:bg-blue-300 py-1 px-2 rounded-lg text-sm"
-            >
-              Technology
-            </a>
-            <a
-              href="#"
-              className="bg-green-200 hover:bg-green-300 py-1 px-2 rounded-lg text-sm"
-            >
-              Programming
-            </a>
-            <a
-              href="#"
-              className="bg-yellow-200 hover:bg-yellow-300 py-1 px-2 rounded-lg text-sm"
-            >
-              Web Development
-            </a>
-            <a
-              href="#"
-              className="bg-indigo-200 hover:bg-indigo-300 py-1 px-2 rounded-lg text-sm"
-            >
-              Design
-            </a>
-            <a
-              href="#"
-              className="bg-purple-200 hover:bg-purple-300 py-1 px-2 rounded-lg text-sm"
-            >
-              AI
-            </a>
-            <a
-              href="#"
-              className="bg-pink-200 hover:bg-pink-300 py-1 px-2 rounded-lg text-sm"
-            >
-              Machine Learning
-            </a>
+      <div className="my-10">
+        <input
+          onChange={(e) => {
+            setFilter(e.target.value);
+          }}
+          type="text"
+          placeholder="Search"
+          className="mx-20 w-5/6 px-4 py-3 border border-slate-400 outline-none rounded-xl"
+        ></input>
+        <div className="mt-7 mx-20 flex flex-wrap gap-2">
+          <a
+            href="#"
+            className="bg-blue-200 hover:bg-blue-300 py-1 px-2 rounded-lg text-sm"
+          >
+            Technology
+          </a>
+          <a
+            href="#"
+            className="bg-green-200 hover:bg-green-300 py-1 px-2 rounded-lg text-sm"
+          >
+            Programming
+          </a>
+          <a
+            href="#"
+            className="bg-yellow-200 hover:bg-yellow-300 py-1 px-2 rounded-lg text-sm"
+          >
+            Web Development
+          </a>
+          <a
+            href="#"
+            className="bg-indigo-200 hover:bg-indigo-300 py-1 px-2 rounded-lg text-sm"
+          >
+            Design
+          </a>
+          <a
+            href="#"
+            className="bg-purple-200 hover:bg-purple-300 py-1 px-2 rounded-lg text-sm"
+          >
+            AI
+          </a>
+          <a
+            href="#"
+            className="bg-pink-200 hover:bg-pink-300 py-1 px-2 rounded-lg text-sm"
+          >
+            Machine Learning
+          </a>
+        </div>
+      </div>
+      {loading ? (
+        <>
+          <div className=" flex justify-center items-center h-[50vh] text-xl font-semibold">
+            Loading...
           </div>
-        </div>
-        <div className=" grid grid-cols-3 mx-16">
-          {jobs.map((job) => (
-            <JobCard job={job} key={job._id} />
-          ))}
-        </div>
-      </>
+        </>
+      ) : (
+        <>
+          <div className=" grid grid-cols-3 mx-16">
+            {jobs.map((job) => (
+              <JobCard job={job} key={job._id} />
+            ))}
+          </div>
+        </>
+      )}
     </>
   );
 };
