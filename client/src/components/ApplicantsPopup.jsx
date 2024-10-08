@@ -12,7 +12,7 @@ const ApplicantPopup = ({ show, onClose, applicant }) => {
   const handleShortlist = async () => {
     try {
       const response = await axios.post(
-        "http://localhost:7000/api/v1/job/shortlist",
+        `${import.meta.env.VITE_BACKEND_URI}/api/v1/job/shortlist`,
         {
           userId: applicant.postedBy,
           cardId: id,
@@ -30,7 +30,7 @@ const ApplicantPopup = ({ show, onClose, applicant }) => {
   const handleReject = async () => {
     try {
       const response = await axios.post(
-        "http://localhost:7000/api/v1/job/reject",
+        `${import.meta.env.VITE_BACKEND_URI}/api/v1/job/reject`,
         {
           userId: applicant.postedBy,
           cardId: id,

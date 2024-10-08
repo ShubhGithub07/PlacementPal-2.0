@@ -1,7 +1,7 @@
 const Footer = () => {
   return (
     <>
-      <div className=" h-[450px] bg-[#0d1117]">
+      <div className=" hidden lg:inline h-[450px] bg-[#0d1117]">
         <div className=" text-white flex flex-col justify-center items-start pb-10 pr-10 pl-24 w-1/3 float-start h-[370px]">
           <div className=" text-4xl font-semibold mb-5">iAmLogo</div>
           <div className=" text-lg font-medium mb-2">Call on : 8979324575</div>

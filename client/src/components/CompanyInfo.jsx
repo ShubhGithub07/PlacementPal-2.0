@@ -60,7 +60,11 @@ const BasicInformation = () => {
             <div className=" w-1/4 h-full">
               <p>Company Logo</p>
               <div className=" mt-3 h-[68%] cursor-pointer bg-gray-200 rounded-lg">
-                <img className=" w-full rounded-lg h-[240px] " src={logoUrl} alt="Logo" />
+                <img
+                  className=" w-full rounded-lg h-[240px] "
+                  src={logoUrl}
+                  alt="Logo"
+                />
                 {/* <input
                   type="text"
                   onChange={(e) => {
@@ -161,7 +165,7 @@ const FoundingInfos = () => {
     "Media and Entertainment",
     "Food and Beverage",
     "Legal Services",
-    "Nonprofit"
+    "Nonprofit",
   ];
 
   const teamSizes = [
@@ -172,7 +176,7 @@ const FoundingInfos = () => {
     "501-1000 employees",
     "1001-5000 employees",
     "5001-10,000 employees",
-    "10,001+ employees"
+    "10,001+ employees",
   ];
 
   const [companyOrg, setCompanyOrg] = useRecoilState(companyOrganizationAtom);
@@ -405,10 +409,11 @@ const FinalButton = () => {
       postedBy: LoggedInUserId,
     };
 
-
     try {
       const response = await axios.post(
-        "http://localhost:7000/api/v1/companyprofile/createCompanyProfile",
+        `${
+          import.meta.env.VITE_BACKEND_URI
+        }/api/v1/companyprofile/createCompanyProfile`,
         postData
       );
       navigate("/");

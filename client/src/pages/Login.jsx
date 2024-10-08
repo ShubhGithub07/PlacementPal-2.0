@@ -77,10 +77,13 @@ const LoginButton = ({ value, Linkto }) => {
     setError(null);
 
     try {
-      const res = await axios.post("http://localhost:7000/api/v1/users/login", {
-        email: email,
-        password: password,
-      });
+      const res = await axios.post(
+        `${import.meta.env.VITE_BACKEND_URI}/api/v1/users/login`,
+        {
+          email: email,
+          password: password,
+        }
+      );
 
       if (res.data.token) {
         localStorage.setItem("token", res.data.token);

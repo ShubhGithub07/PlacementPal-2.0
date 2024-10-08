@@ -13,7 +13,7 @@ const ApplicantsList = () => {
     const fetchJobDetail = async () => {
       try {
         const response = await axios.get(
-          `http://localhost:7000/api/v1/job/${id}`
+          `${import.meta.env.VITE_BACKEND_URI}/api/v1/job/${id}`
         );
         setJobDetail(response.data.data.job);
       } catch (error) {
@@ -67,7 +67,9 @@ const ApplicantsSection = ({ jobDetail }) => {
     const fetchApplicants = async () => {
       const applicantPromises = jobDetail.appliedUsers?.map((user) => {
         return axios.post(
-          "http://localhost:7000/api/v1/userprofile/getmyUserProfile",
+          `${
+            import.meta.env.VITE_BACKEND_URI
+          }/api/v1/userprofile/getmyUserProfile`,
           {
             userId: user.userId,
           }

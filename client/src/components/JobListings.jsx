@@ -27,7 +27,9 @@ const SearchArea = () => {
   useEffect(() => {
     axios
       .get(
-        "http://localhost:7000/api/v1/jobcard/getalljobcard?filter=" + filter
+        `${
+          import.meta.env.VITE_BACKEND_URI
+        }/api/v1/jobcard/getalljobcard?filter=` + filter
       )
       .then((response) => {
         setJobs(response.data.JobCards);

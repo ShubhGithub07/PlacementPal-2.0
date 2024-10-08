@@ -13,9 +13,14 @@ const EmployeeDashboard = () => {
 
   const fetchDetails = useCallback(async (userId) => {
     await axios
-      .post("http://localhost:7000/api/v1/companyprofile/getMyCompanyProfile", {
-        userId,
-      })
+      .post(
+        `${
+          import.meta.env.VITE_BACKEND_URI
+        }/api/v1/companyprofile/getMyCompanyProfile`,
+        {
+          userId,
+        }
+      )
       .then((res) => {
         setCompDetails(res.data.data);
         setCompId(res.data.data._id);
@@ -30,7 +35,7 @@ const EmployeeDashboard = () => {
     if (!compId) return;
 
     await axios
-      .post("http://localhost:7000/api/v1/job/getmyjobs", {
+      .post(`${import.meta.env.VITE_BACKEND_URI}/api/v1/job/getmyjobs`, {
         compId,
       })
       .then((res) => {

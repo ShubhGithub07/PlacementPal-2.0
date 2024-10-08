@@ -76,16 +76,14 @@ const BasicInformation = () => {
 };
 
 const PersonalInformation = () => {
-  const nationality = [
-    'India'
-  ];
-  const Gender = ["Male", "Female"]
+  const nationality = ["India"];
+  const Gender = ["Male", "Female"];
   const maritalStatusOptions = [
     "Single",
     "Married",
     "Divorced",
     "Widowed",
-    "Separated"
+    "Separated",
   ];
   const [userNationality, setUserNationality] = useRecoilState(nationalityAtom);
   const [userDOB, setUserDOB] = useRecoilState(DOBAtom);
@@ -169,7 +167,13 @@ const FormComponent = () => {
 };
 
 const MultipleSmallInputBox = () => {
-  const Experience = ["Fresher", "1-2 year", "less than 5 years", "5-10 years", 'more than 10 years'];
+  const Experience = [
+    "Fresher",
+    "1-2 year",
+    "less than 5 years",
+    "5-10 years",
+    "more than 10 years",
+  ];
   const Education = [
     "Associate's Degree",
     "Bachelor's Degree",
@@ -177,7 +181,7 @@ const MultipleSmallInputBox = () => {
     "Doctorate Degree",
     "High School Diploma",
     "Vocational Training",
-    "Certification"
+    "Certification",
   ];
   const [userFullname, setUserFullname] = useRecoilState(fullNameAtom);
   const [userHeadline, setUserHeadline] = useRecoilState(headlineAtom);
@@ -368,7 +372,9 @@ const FinalButton = () => {
     try {
       await axios
         .post(
-          "http://localhost:7000/api/v1/userprofile/createUserProfile",
+          `${
+            import.meta.env.VITE_BACKEND_URI
+          }/api/v1/userprofile/createUserProfile`,
           postData
         )
         .then(navigate("/"))

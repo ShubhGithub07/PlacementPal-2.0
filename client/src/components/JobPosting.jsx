@@ -652,7 +652,9 @@ const FinalButton = () => {
 
     try {
       const response = await axios.post(
-        "http://localhost:7000/api/v1/postingjob/createPostingJob",
+        `${
+          import.meta.env.VITE_BACKEND_URI
+        }/api/v1/postingjob/createPostingJob`,
         postData
       );
       navigate("/edashboard");
