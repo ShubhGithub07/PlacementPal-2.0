@@ -16,7 +16,7 @@ const JobDetails = () => {
 
   useEffect(() => {
     axios
-      .get(`http://localhost:7000/api/v1/job/${id}`)
+      .get(`${import.meta.env.VITE_BACKEND_URI}/api/v1/job/${id}`)
       .then((response) => {
         setJobDetail(response.data.data.job);
       })

@@ -20,7 +20,7 @@ const ApplyPopup = ({ show, jobTitle, jobId, onClick }) => {
 
     try {
       await axios.post(
-        "http://localhost:7000/api/v1/application/post",
+        `${import.meta.env.VITE_BACKEND_URI}/api/v1/application/post`,
         postData
       );
     } catch (error) {

@@ -12,9 +12,14 @@ const CandidateDashboard = () => {
 
   const fetchDetails = useCallback(async (userId) => {
     await axios
-      .post("http://localhost:7000/api/v1/userprofile/getmyUserProfile", {
-        userId,
-      })
+      .post(
+        `${
+          import.meta.env.VITE_BACKEND_URI
+        }/api/v1/userprofile/getmyUserProfile`,
+        {
+          userId,
+        }
+      )
       .then((res) => {
         setUserDetail(res.data.data);
       })
@@ -23,7 +28,7 @@ const CandidateDashboard = () => {
       });
 
     await axios
-      .post("http://localhost:7000/api/v1/job/getall", {
+      .post(`${import.meta.env.VITE_BACKEND_URI}/api/v1/job/getall`, {
         userId,
       })
       .then((res) => {
@@ -52,7 +57,9 @@ const CandidateDashboard = () => {
     <>
       {loading ? (
         <>
-          <div className=" flex justify-center items-center h-screen text-xl font-semibold">Loading...</div>
+          <div className=" flex justify-center items-center h-screen text-xl font-semibold">
+            Loading...
+          </div>
         </>
       ) : (
         <>

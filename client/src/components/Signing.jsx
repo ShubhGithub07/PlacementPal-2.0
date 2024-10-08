@@ -168,7 +168,7 @@ const SubmitButton = ({ value }) => {
 
     try {
       await axios
-        .post("http://localhost:7000/api/v1/users/register", {
+        .post(`${import.meta.env.VITE_BACKEND_URI}/api/v1/users/register`, {
           firstName,
           lastName,
           email,

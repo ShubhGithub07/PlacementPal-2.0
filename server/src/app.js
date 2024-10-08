@@ -21,9 +21,9 @@ const app = express();
 //   credentials: true,
 // };
 
-const _dirname = path.dirname("");
-const buildpath = path.join(_dirname, "../client/dist");
-app.use(express.static(buildpath));
+// const _dirname = path.dirname("");
+// const buildpath = path.join(_dirname, "../client/dist");
+// app.use(express.static(buildpath));
 
 app.use(cors());
 
